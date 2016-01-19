@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #https://github.com/edcrewe/django-csvimport
     'csvimport.app.CSVImportConf',
     'data',
 )
