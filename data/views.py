@@ -9,8 +9,6 @@ from django.shortcuts import render_to_response
 from django.forms.models import modelformset_factory
 from data.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from highcharts.views import HighChartsBarView
-from chartit import DataPool, Chart
 
 
 
@@ -21,9 +19,9 @@ from chartit import DataPool, Chart
     #############
 
 def index(request):
-	
+
 	data = TSG.objects.all().order_by('NOMECURSO')
-	
+
 	chart = []
 	centro = []
 	tsgcentro = []
@@ -51,7 +49,7 @@ def cpc(request, dado):
 		else:
 			if a.MUNICIPIOCURSO == "PALMEIRA DAS MISSOES":
 				c.append(a)
-	nome = None 
+	nome = None
 	if dado == "sm/":
 		nome = "SANTA MARIA"
 	elif dado == "fw/":
