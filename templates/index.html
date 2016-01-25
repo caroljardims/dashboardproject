@@ -2,55 +2,5 @@
 
 {% block body%}
 {% load static %}
-
-	<script type="text/javascript">
-   $(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-                text: 'TSG CENTROS'
-            },
-        xAxis: {
-            categories: [{% for a in centro %} '{{ a.0 }}', {% endfor %}]
-
-        },
-
-        tooltip: {
-        	crosshairs: false,
-        },
-
-        plotOptions: {
-        	column: {
-        		states: {
-        			hover: {
-        				color: 'orange'
-        			}
-        		}
-        	},
-            series: {
-                cursor: 'pointer',
-                point: {
-                    events: {
-                        click: function () {
-                            window.open("/cpc/sm", "_self")
-                        }
-                    }
-                }
-            }
-        },
-
-        series: [{
-            data: [{% for a in centro %} {{a.1}}, {% endfor %}],
-            color: 'gray',
-        }]
-    });
-});
-</script>
-<script src="{% static "js/highcharts.js" %}"></script>
-<script src="{% static "js/modules/exporting.js" %}"></script>
-<div id="container" style="min-width: 500px; height: 700px; margin: 0 auto"></div>
-
-<div id='chart'> </div>
+<div id="placeholder" style="width:600px;height:300px"></div>
 {% endblock %}

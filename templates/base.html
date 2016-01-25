@@ -5,21 +5,33 @@
     <head>
         <title>Indicadores</title>
         <link rel="stylesheet" href="{% static "css/style.css" %}" /> <!-- CSS -->
-        <script src="{% static "jquery/jquery.min.js"%}"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="{% static "flot/jquery.min.js"%}"></script>
+        <script language="javascript" type="text/javascript" src="{% static "flot/jquery.flot.js"%}"></script>
         <style type="text/css">
 ${demo.css}
         </style>
-        
+    <script type="text/javascript">
+
+        $(function() {
+
+            var d2 = [[1999, 3.0], [2000, 3.9], [2001, 2.0], [2002, 1.2], [2003, 1.3], [2004, 2.5], [2005, 2.0], [2006, 3.1], [2007, 2.9], [2008, 0.9]];
+
+            $.plot("#placeholder", [ d2 ]);
+
+            // Add the Flot version string to the footer
+
+            $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+        });
+    </script>
     </head>
 
     <body>
     	<header>
     		<a href="/index/"><img src="{% static "img/UFSM.jpg" %}" /></a>
-    	</header>   	
+    	</header>
 
         <article>
-           
+
         {% block body %} {% endblock %}
         </article>
     </body>
