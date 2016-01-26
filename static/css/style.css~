@@ -37,5 +37,5 @@ article {
 }
 
 #placeholder{
-	margin:80px;
+	padding:80px;
 }
