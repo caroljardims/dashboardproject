@@ -40,7 +40,7 @@
 
             var data = [];
 
-            choiceContainer.find("input:checked").each(function () {
+choiceContainer.find("input:checked").each(function () {
                 var key = $(this).attr("name");
                 if (key && datasets[key]) {
                     data.push(datasets[key]);
@@ -65,7 +65,7 @@
 
     </script>
 
-<p id="choices" style="float:right; width:135px;"></p>
+<p id="choices" style="float:left; width:200px; margin-left:10px;"></p>
 <div id="placeholder" style="width:700px;height:300px;"></div>
 
 {% endblock %}

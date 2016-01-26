@@ -1,4 +1,4 @@
-html{ 
+html{
 	height: 100%;
 }
 body{
@@ -37,5 +37,5 @@ article {
 }
 
 #placeholder{
-	margin:80px;
+	margin-left:300px;
 }

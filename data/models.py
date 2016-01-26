@@ -1,20 +1,5 @@
 from django.db import models
 
-class TSG(models.Model):
-	CENTRO = models.CharField(max_length=50)
-	ANO	= models.IntegerField(default=0)
-	CODCURSO = models.IntegerField(default=0)
-	NOMECURSO = models.CharField(max_length=50)
-	INGRESSANTES = models.IntegerField(default=0)
-	FORMADOS = models.IntegerField(default=0)
-	MATRICULADOS = models.IntegerField(default=0)
-	TSGTAXA	= models.FloatField(default=0)
-	TSGCENTRO = models.FloatField(default=0)
-	TSGUFSM	= models.FloatField(default=0)
-	ANOINGRESSO = models.IntegerField(default=0)
-	def __unicode__(self):
-		return self.NOMECURSO
-		
 class CPC(models.Model):
     ano = models.IntegerField(default=0)
     cod_area = models.IntegerField(default=0)
@@ -104,3 +89,18 @@ class CPC(models.Model):
     distanciaifesenade = models.FloatField(default=0)
     def __unicode__(self):
         return self.area + " " + str(self.ano)
+
+class TSG(models.Model):
+    centro = models.CharField(max_length=7)
+    ano = models.IntegerField(default=0)
+    codcurso = models.IntegerField(default=0)
+    nomecurso = models.CharField(max_length=50)
+    ingressantes = models.IntegerField(default=0)
+    formados = models.IntegerField(default=0)
+    matriculados = models.IntegerField(default=0)
+    tsgtaxa = models.FloatField(default=0)
+    tsgcentro = models.FloatField(default=0)
+    tsgufsm = models.FloatField(default=0)
+    anoingresso = models.IntegerField(default=0)
+    def __unicode__(self):
+        return self.centro
