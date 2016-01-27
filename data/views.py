@@ -13,22 +13,33 @@ import unicodedata
 
 def index(request):
 
-	data = CPC.objects.all().order_by('area')
-	areas = []
+    cpc = CPC.objects.all().order_by('area')
+    tsg = TSG.objects.all()
+    areas = []
+    centros = []
+    d1 = []
 
-	d1 = []
+    for t in tsg:
+       centros.append(t.centro)
+    centros = list(set(centros))
+    for c in centros:
+        x = []
+        for t in tsg:
+            if c == t.centro:
+                x.append(t)
+        d1.append(x)
 
-	for d in data:
-		areas.append(d.area)
-	areas = list(set(areas))
-	for a in areas:
-		x = []
-		for d in data:
-			if a == d.area:
-				x.append(d)
-				print d.area
-		d1.append(x)
-	# for a in areas: print a.encode('ascii','ignore')
+    for d in cpc:
+       areas.append(d.area)
+    areas = list(set(areas))
+    for a in areas:
+        x = []
+        for d in cpc:
+            if a == d.area:
+                x.append(d)
+                #print d.area
+    #d1.append(x)
+    # for a in areas: print a.encode('ascii','ignore')
 
-	context = {'d1':d1}
-	return render_to_response('index.html', context)
+    context = {'d1':d1}
+    return render_to_response('index.html', context)

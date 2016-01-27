@@ -9,9 +9,9 @@
     $(function() {
 
         var datasets = { {% for d in d1 %}
-            "{{ d.0.cod_area }}": {
-                label: "{{ d.0.area }}",
-                data: [{% for x in d %} [{{ x.ano }}, {{ x.cpc_continuo }}], {% endfor %}]
+            "{{ d.0.centro }}": {
+                label: "{{ d.0.centro }}",
+                data: [{% for x in d %} [{{ x.ano }}, {{ x.tsgcentro }}], {% endfor %}]
             },
             {% endfor %}
         };
