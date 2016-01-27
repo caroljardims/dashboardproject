@@ -43,3 +43,20 @@ def index(request):
 
     context = {'d1':d1}
     return render_to_response('index.html', context)
+
+def centros(request):
+    tsg = TSG.objects.all()
+    centros = []
+    d1 = []
+
+    for t in tsg:
+       centros.append(t.centro)
+    centros = list(set(centros))
+    for c in centros:
+        x = []
+        for t in tsg:
+            if c == t.centro:
+                x.append(t)
+        d1.append(x)
+    context = {'d1':d1}
+    return render_to_response('centros.html', context)
