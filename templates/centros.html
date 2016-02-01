@@ -40,7 +40,7 @@
 
             var data = [];
 
-choiceContainer.find("input:checked").each(function () {
+            choiceContainer.find("input:checked").each(function () {
                 var key = $(this).attr("name");
 
                     data.push(datasets[key]);
@@ -48,18 +48,16 @@ choiceContainer.find("input:checked").each(function () {
             });
 
             $.plot("#placeholder", data, {
-                series: {
-                bars: {
-                    show: true,
-                    barWidth: 0.3,
-                    align: "center"
-                },
-            },
-                yaxis: {
-                    min: 0
-                },
                 xaxis: {
-                    tickDecimals: 0
+                    minTickSize: 1
+                },
+                series: {
+                    bars: {
+                        show: true,
+                        barWidth: 0.9,
+                        align: "center"
+                    },
+                    stack: true
                 }
             });
         }
