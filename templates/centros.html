@@ -48,17 +48,14 @@
             });
 
             $.plot("#placeholder", data, {
-                xaxis: {
-                    minTickSize: 1
-                },
                 series: {
+                    stack: true,
                     bars: {
                         show: true,
-                        barWidth: 0.9,
-                        align: "center"
+                        barWidth: 0.4,
+                        align: "center",
                     },
-                    stack: true
-                }
+                },
             });
         }
 
