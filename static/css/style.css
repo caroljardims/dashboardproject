@@ -33,6 +33,7 @@ article {
 	max-width: 1300px;
 	width: 85%;
 	height: auto;
+	min-height: 100%;
 	margin: auto;
 }
 

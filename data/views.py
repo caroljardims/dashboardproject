@@ -50,12 +50,17 @@ def centros(request):
     context = {'d1':d1, 'd2':d2}
     return render_to_response('centros.html', context)
 
-def centro(request):
-    d1 = []
+def cursos(request):
+    d1 = [] #lista dos dados
     areas = []
+    centros = []
     for c in cpc:
         areas.append(c.codigo_curso)
     areas = list(set(areas))
+
+    for c in cpc:
+        centros.append(c.centro)
+    centros = list(set(centros))
 
     for a in areas:
         x = []
@@ -64,5 +69,5 @@ def centro(request):
                 x.append(c)
         d1.append(x)
 
-    context = {'d1':d1}
-    return render(request,"centro.html", context)
+    context = {'centros':centros, 'd1':d1}
+    return render(request,"cursos.html", context)

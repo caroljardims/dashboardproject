@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block body%}
+{% load static %}
+{% for c in centros %}
+        <script type="text/javascript">
+    $(function () {
+        $('#container{{ c }}').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'CPC {{ c }} UFSM'
+            },
+
+            xAxis: {
+                crosshair: true,
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'CPC {{ c }}'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                     borderWidth: 1,
+                }
+            },
+            series: [
+            {% for d in d1 %}
+            {% if d.0.centro == c %}
+            {
+                name: '{{ d.0.nome_curso }}',
+                data: [{% for x in d %} [{{x.ano}},{{ x.cpc_f2013 }}],{% endfor %}],
+            },
+            {% endif %}
+            {% endfor %}]
+        });
+    });
+</script>
+
+<div id="container{{ c }}" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+{% endfor %}
+{% endblock %}
