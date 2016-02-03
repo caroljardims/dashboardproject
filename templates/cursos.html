@@ -3,7 +3,7 @@
 {% block body%}
 {% load static %}
 {% for c in centros %}
-        <script type="text/javascript">
+<script type="text/javascript">
     $(function () {
         $('#container{{ c }}').highcharts({
             chart: {
@@ -44,8 +44,6 @@
         });
     });
 </script>
-
-<div id="container{{ c }}" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-
+    <div id="container{{ c }}" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
 {% endfor %}
 {% endblock %}
