@@ -18,8 +18,10 @@ def index(request):
 
 def centros(request):
     tsg = TSG.objects.all()
+    cpc = CPC.objects.all().order_by("ano")
     centros = []
     d1 = []
+    d2 = []
 
     for t in tsg:
        centros.append(t.centro)
@@ -31,7 +33,20 @@ def centros(request):
             if c == t.centro:
                 x.append(t)
         d1.append(x)
-    context = {'d1':d1}
+
+    centros = []
+    for c in cpc:
+        centros.append(c.id_centro)
+    centros = list(set(centros))
+
+    for c in centros:
+        x = []
+        for t in cpc:
+            if c == t.id_centro:
+                x.append(t)
+        d2.append(x)
+
+    context = {'d1':d1, 'd2':d2}
     return render_to_response('centros.html', context)
 
 def centro(request, n_centro):
