@@ -12,22 +12,14 @@ $(function () {
         title: {
             text: 'TSG Centros UFSM'
         },
+
         xAxis: {
-            categories: [
-                '2009',
-                '2010',
-                '2011',
-                '2012',
-                '2013',
-                '2014',
-                '2015',
-            ],
             crosshair: true
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'TSG'
+                text: 'Rainfall (mm)'
             }
         },
         tooltip: {
@@ -48,7 +40,7 @@ $(function () {
         {% for d in d1 %}
         {
             name: '{{ d.0.centro }}',
-            data: [{{ d.0.tsgcentro }},{{ d.1.tsgcentro }},{{ d.2.tsgcentro }},{{ d.3.tsgcentro }},{{ d.4.tsgcentro }},{{ d.5.tsgcentro }},{{ d.6.tsgcentro }},]
+            data: [{% for x in d %} [{{ x.ano }}, {{ x.tsgcentro }}],{% endfor %}],
 
         },
         {% endfor %}]
