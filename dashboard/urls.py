@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^$', 'data.views.index', name='index'),
     url(r'index', 'data.views.index', name='index'),
     url(r'centros', 'data.views.centros', name='centros'),
-    url(r'^centro/\d+/$', 'data.views.centro', name='centro'),
+    url(r'^cursos', 'data.views.cursos', name='cursos'),
 ]

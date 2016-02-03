@@ -11,15 +11,18 @@ from data.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import unicodedata
 
+tsg = TSG.objects.all()
+cpc = CPC.objects.all().order_by("ano")
+
 def index(request):
 
     context = {}
     return render_to_response('index.html', context)
 
 def centros(request):
-    tsg = TSG.objects.all()
     centros = []
     d1 = []
+    d2 = []
 
     for t in tsg:
        centros.append(t.centro)
@@ -31,9 +34,40 @@ def centros(request):
             if c == t.centro:
                 x.append(t)
         d1.append(x)
-    context = {'d1':d1}
+
+    centros = []
+    for c in cpc:
+        centros.append(c.id_centro)
+    centros = list(set(centros))
+
+    for c in centros:
+        x = []
+        for t in cpc:
+            if c == t.id_centro:
+                x.append(t)
+        d2.append(x)
+
+    context = {'d1':d1, 'd2':d2}
     return render_to_response('centros.html', context)
 
-def centro(request, n_centro):
-    context = {}
-    return render(request,"centro.html", context)
+def cursos(request):
+    d1 = [] #lista dos dados
+    areas = []
+    centros = []
+    for c in cpc:
+        areas.append(c.codigo_curso)
+    areas = list(set(areas))
+
+    for c in cpc:
+        centros.append(c.centro)
+    centros = list(set(centros))
+
+    for a in areas:
+        x = []
+        for c in cpc:
+            if a == c.codigo_curso:
+                x.append(c)
+        d1.append(x)
+
+    context = {'centros':centros, 'd1':d1}
+    return render(request,"cursos.html", context)
