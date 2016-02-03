@@ -11,14 +11,15 @@ from data.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import unicodedata
 
+tsg = TSG.objects.all()
+cpc = CPC.objects.all().order_by("ano")
+
 def index(request):
 
     context = {}
     return render_to_response('index.html', context)
 
 def centros(request):
-    tsg = TSG.objects.all()
-    cpc = CPC.objects.all().order_by("ano")
     centros = []
     d1 = []
     d2 = []
@@ -49,6 +50,19 @@ def centros(request):
     context = {'d1':d1, 'd2':d2}
     return render_to_response('centros.html', context)
 
-def centro(request, n_centro):
-    context = {}
+def centro(request):
+    d1 = []
+    areas = []
+    for c in cpc:
+        areas.append(c.codigo_curso)
+    areas = list(set(areas))
+
+    for a in areas:
+        x = []
+        for c in cpc:
+            if a == c.codigo_curso:
+                x.append(c)
+        d1.append(x)
+
+    context = {'d1':d1}
     return render(request,"centro.html", context)
