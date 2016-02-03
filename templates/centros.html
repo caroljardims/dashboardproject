@@ -3,75 +3,60 @@
 {% block body%}
 {% load static %}
 
+        <script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'TSG Centros UFSM'
+        },
+        xAxis: {
+            categories: [
+                '2009',
+                '2010',
+                '2011',
+                '2012',
+                '2013',
+                '2014',
+                '2015',
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'TSG'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [
+        {% for d in d1 %}
+        {
+            name: '{{ d.0.centro }}',
+            data: [{{ d.0.tsgcentro }},{{ d.1.tsgcentro }},{{ d.2.tsgcentro }},{{ d.3.tsgcentro }},{{ d.4.tsgcentro }},{{ d.5.tsgcentro }},{{ d.6.tsgcentro }},]
 
-    <script type="text/javascript">
-
-    $(function() {
-
-        var datasets = { {% for d in d1 %}
-            "{{ d.0.centro }}": {
-                label: "{{ d.0.centro }}",
-                data: [{% for x in d %} [{{ x.ano }}, {{ x.tsgcentro }}], {% endfor %}]
-            },
-            {% endfor %}
-        };
-
-        // hard-code color indices to prevent them from shifting as
-        // countries are turned on/off
-
-        var i = 0;
-        $.each(datasets, function(key, val) {
-            val.color = i;
-            ++i;
-        });
-
-        // insert checkboxes
-        var choiceContainer = $("#choices");
-        $.each(datasets, function(key, val) {
-            choiceContainer.append("<br/><input type='checkbox' name='" + key +
-                "' checked='checked' id='id" + key + "'></input>" +
-                "<label for='id" + key + "'>"
-                + val.label + "</label>");
-        });
-
-        choiceContainer.find("input").click(plotAccordingToChoices);
-
-        function plotAccordingToChoices() {
-
-            var data = [];
-
-            choiceContainer.find("input:checked").each(function () {
-                var key = $(this).attr("name");
-
-                    data.push(datasets[key]);
-
-            });
-
-            $.plot("#placeholder", data, {
-                xaxis: {
-                    minTickSize: 1
-                },
-                series: {
-                    bars: {
-                        show: true,
-                        barWidth: 0.9,
-                        align: "center"
-                    },
-                    stack: true
-                }
-            });
-        }
-
-        plotAccordingToChoices();
-
+        },
+        {% endfor %}]
     });
+});
+        </script>
 
-    </script>
+<div id="container" style="min-width: 310px; max-width: 950px; height: 400px; margin: 0 auto"></div>
 
-<p id="choices" style="float:right; width:200px; margin:10px;"></p>
-<div id="chart">
-<div id="placeholder" style="width:700px;height:300px;"></div>
-<div id="legend"></div>
-</div>
 
 {% endblock %}

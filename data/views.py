@@ -24,6 +24,7 @@ def centros(request):
     for t in tsg:
        centros.append(t.centro)
     centros = list(set(centros))
+
     for c in centros:
         x = []
         for t in tsg:
@@ -32,3 +33,7 @@ def centros(request):
         d1.append(x)
     context = {'d1':d1}
     return render_to_response('centros.html', context)
+
+def centro(request, n_centro):
+    context = {}
+    return render(request,"centro.html", context)
