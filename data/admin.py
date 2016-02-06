@@ -4,3 +4,4 @@ from data.models import *
 # Register your models here.
 admin.site.register(CPC)
 admin.site.register(TSG)
+admin.site.register(IGC)

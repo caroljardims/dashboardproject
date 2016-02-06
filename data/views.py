@@ -13,11 +13,20 @@ import unicodedata
 
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
+igc = IGC.objects.all().order_by("ano")
 
 def index(request):
-
     context = {}
     return render_to_response('index.html', context)
+
+
+def igc_ufsm(request):
+    context = {}
+    igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
+    context = {'ufsm':igc_ufsm}
+
+    return render_to_response('igc.html', context)
+
 
 def centros(request):
     centros = []
