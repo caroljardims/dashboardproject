@@ -24,14 +24,14 @@ $(function () {
                 }
             },
             title: {
-                text: 'IGC Contínuo',
+                text: 'IGC Faixa',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
             }
         }, { // Secondary yAxis
             title: {
-                text: 'IGC Faixa',
+                text: 'IGC Contínuo',
                 style: {
                     color: Highcharts.getOptions().colors[0]
                 }
@@ -102,14 +102,14 @@ $(function () {
                 }
             },
             title: {
-                text: 'Total de instituições',
+                text: 'Posição',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
             }
         }, { // Secondary yAxis
             title: {
-                text: 'Posição',
+                text: 'Total de instituições',
                 style: {
                     color: Highcharts.getOptions().colors[0]
                 }
@@ -148,7 +148,7 @@ $(function () {
             type: 'spline',
             data: [{% for i in posicao %} {{i}}, {% endfor %}],
             tooltip: {
-                valueSuffix: 'º'
+                valueSuffix: 'º lugar'
             }
         }]
     });
