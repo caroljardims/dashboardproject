@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block body%}
+{% load static %}
+
+<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            zoomType: ''
+        },
+        title: {
+            text: 'Evolução do IGC da UFSM'
+        },
+        xAxis: [{
+            categories: [{% for i in ufsm %} {{i.ano}}, {% endfor %}],
+            crosshair: false
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'IGC Faixa',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'IGC Contínuo',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 120,
+            verticalAlign: 'top',
+            y: 20,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'IGC Contínuo',
+            type: 'column',
+            yAxis: 0,
+            data: [{% for i in ufsm %} {{i.igc_continuo}}, {% endfor %}],
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'IGC Faixa',
+            type: 'spline',
+            data: [{% for i in ufsm %} {{i.igc_faixa}}, {% endfor %}],
+            tooltip: {
+                valueSuffix: ''
+            }
+        }]
+    });
+});
+</script>
+
+<div id="container" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+<br/><br/><br/>
+
+<script type="text/javascript">
+$(function () {
+    $('#container_1').highcharts({
+        chart: {
+            zoomType: ''
+        },
+        title: {
+            text: 'IGC MEC - Evolução da posição da UFSM entre as Universidades'
+        },
+        xAxis: [{
+            categories: [{% for i in ufsm %} {{i.ano}}, {% endfor %}],
+            crosshair: false
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'Posição',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'Total de instituições',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 120,
+            verticalAlign: 'top',
+            y: 20,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'Total de instituições',
+            type: 'column',
+            yAxis: 1,
+            data: [{% for i in total_ies %} {{i}}, {% endfor %}],
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'Posição UFSM',
+            type: 'spline',
+            data: [{% for i in posicao %} {{i}}, {% endfor %}],
+            tooltip: {
+                valueSuffix: 'º lugar'
+            }
+        }]
+    });
+});
+</script>
+
+<div id="container_1" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+<br/><br/><br/>
+
+
+
+
+{% endblock %}

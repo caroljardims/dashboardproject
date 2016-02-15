@@ -1,5 +1,20 @@
 from django.db import models
 
+class IGC(models.Model):
+    ano = models.IntegerField(default=0)
+    codies = models.IntegerField(default=0)
+    nomeies = models.CharField(max_length=50)
+    sigla = models.CharField(max_length=15)
+    publica = models.IntegerField(default=0)
+    categoriaadm = models.CharField(max_length=30)
+    orgacademica =  models.CharField(max_length=30)
+    uf = models.CharField(max_length=2)
+    igc_continuo = models.FloatField(default=0)
+    igc_faixa = models.FloatField(default=0)
+    def __unicode__(self):
+        return self.nomeies
+
+
 class TSG(models.Model):
     centro = models.CharField(max_length=7)
     ano = models.IntegerField(default=0)

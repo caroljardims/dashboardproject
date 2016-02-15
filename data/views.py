@@ -13,11 +13,40 @@ import unicodedata
 
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
+igc = IGC.objects.all().order_by("ano")
 
 def index(request):
-
     context = {}
     return render_to_response('index.html', context)
+
+
+def igc(request):
+    context = {}
+    igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
+    context = {'ufsm':igc_ufsm}
+    ano = IGC.objects.values('ano').distinct().order_by("ano")
+    
+    posicao = []
+    total = []
+    for i in ano:
+        base = 2009     #Gambiarra!!!
+        #i.values()[0]  # TESTAR
+        x = IGC.objects.filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
+        x = x.filter(ano = i.values()[0])
+
+        value_igc = x.values('igc_continuo')
+
+        y = IGC.objects.filter(ano = i.values()[0]).order_by("ano").count()
+        total.append(y)
+
+        z = IGC.objects.filter(ano = i.values()[0])
+        z = z.filter(igc_continuo__gte = value_igc).count() + 1
+        posicao.append(z)
+
+        base = base + 1
+
+    context = {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
+    return render_to_response('igc.html', context)
 
 def centros(request):
     centros = []

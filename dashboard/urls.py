@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'index', 'data.views.index', name='index'),
     url(r'centros', 'data.views.centros', name='centros'),
     url(r'^cursos', 'data.views.cursos', name='cursos'),
+    url(r'^igc', 'data.views.igc', name='IGC UFSM'),
 ]
