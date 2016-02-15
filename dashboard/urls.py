@@ -6,8 +6,10 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'data.views.index', name='index'),
-    url(r'index', 'data.views.index', name='index'),
-    url(r'centros', 'data.views.centros', name='centros'),
+    url(r'^index', 'data.views.index', name='index'),
+    url(r'^centros', 'data.views.centros', name='centros'),
     url(r'^cursos', 'data.views.cursos', name='cursos'),
+    url(r'^curso/([0-9]*)/$', 'data.views.curso', name='curso'),
     url(r'^igc', 'data.views.igc', name='IGC UFSM'),
+
 ]

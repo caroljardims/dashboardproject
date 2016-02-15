@@ -5,9 +5,10 @@ import unicodedata
 
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
-igc = IGC
 
-# funções IGC
+	############### 
+	# funções IGC #
+	###############
 def figc():
 	igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
 	context = {'ufsm':igc_ufsm}
@@ -34,8 +35,9 @@ def figc():
 
 	return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
 
-
-# funções Centros
+	###################
+	# funções Centros #
+	###################
 def fcentros():
 	centros = []
 	d1 = []
@@ -66,8 +68,10 @@ def fcentros():
 
 	return {'d1':d1, 'd2':d2}
 
-
-def fcursos():
+	##################
+	# funções Cursos #
+	##################
+def fcurso():
     d1 = [] #lista dos dados
     areas = []
     centros = []
@@ -85,5 +89,15 @@ def fcursos():
             if a == c.codigo_curso:
                 x.append(c)
         d1.append(x)
-        
+
     return {'centros':centros, 'd1':d1}
+
+
+def fcursos():
+	cursos = []
+	x = cpc.filter(ano = "2014").order_by("nome_curso")
+	for c in x:
+	   cursos.append(c)
+	cursos = list(set(cursos))
+	#cursos.sort()
+	return {'cursos':cursos, 'cpc':cpc}

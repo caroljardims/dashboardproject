@@ -74,3 +74,20 @@ footer{
 	text-decoration: none;
 	border-bottom:3px solid #EDEDED;
 }
+
+.btn {
+  background: #3498db;
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px 15px 10px 15px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}

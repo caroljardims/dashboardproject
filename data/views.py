@@ -29,6 +29,9 @@ def centros(request):
     return render_to_response('centros.html', context)
 
 def cursos(request):
-
     context = fcursos()
     return render(request,"cursos.html", context)
+
+def curso(request, cod_curso):
+    context = fcurso()
+    return render(request,"curso.html", context)
