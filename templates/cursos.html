@@ -3,13 +3,22 @@
 {% block body%}
 {% load static %}
 
-<div>
-    <select>
-    {% for c in cursos %}
-        <option value="{{ c.codigo_curso }}"> {{ c.nome_curso }} </option>
-    {% endfor %}
-    </select> 
-    <input class="btn" type="submit" value="Ir"><br />
-</div>
 
+
+
+<div id="cursosArea">
+    <div id='dropdownselect'>
+        <ul>
+            {% for i in centros %}
+           <li class='active has-sub'><a href='#'><span>{{ i }}</span></a>
+                <ul>
+                {% for c in cursos %}{% if c.centro == i %}
+                     <li class='has-sub'><a href='/curso/{{ c.codigo_curso }}'><span> {{ c.nome_curso }} </span></a></li>
+                {% endif %}{% endfor %}
+                </ul>
+            </li>
+           {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}

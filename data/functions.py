@@ -6,7 +6,7 @@ import unicodedata
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
 
-	############### 
+	###############
 	# funções IGC #
 	###############
 def figc():
@@ -71,33 +71,30 @@ def fcentros():
 	##################
 	# funções Cursos #
 	##################
+
+d1 = [] #lista dos dados
+areas = []
+centros = []
+for c in cpc:
+    areas.append(c.codigo_curso)
+areas = list(set(areas))
+
+for c in cpc:
+    centros.append(c.centro)
+centros = list(set(centros))
+
+for a in areas:
+    x = []
+    for c in cpc:
+        if a == c.codigo_curso:
+            x.append(c)
+    d1.append(x)
 def fcurso():
-    d1 = [] #lista dos dados
-    areas = []
-    centros = []
-    for c in cpc:
-        areas.append(c.codigo_curso)
-    areas = list(set(areas))
-
-    for c in cpc:
-        centros.append(c.centro)
-    centros = list(set(centros))
-
-    for a in areas:
-        x = []
-        for c in cpc:
-            if a == c.codigo_curso:
-                x.append(c)
-        d1.append(x)
-
     return {'centros':centros, 'd1':d1}
 
 
 def fcursos():
-	cursos = []
-	x = cpc.filter(ano = "2014").order_by("nome_curso")
-	for c in x:
-	   cursos.append(c)
+	cursos = cpc.filter(ano = "2014").order_by("nome_curso")
 	cursos = list(set(cursos))
 	#cursos.sort()
-	return {'cursos':cursos, 'cpc':cpc}
+	return {'cursos':cursos, 'cpc':cpc, 'centros':centros}
