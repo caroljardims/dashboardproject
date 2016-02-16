@@ -94,7 +94,18 @@ def fcurso():
 
 
 def fcursos():
-	cursos = cpc.filter(ano = "2014").order_by("nome_curso")
-	cursos = list(set(cursos))
-	#cursos.sort()
-	return {'cursos':cursos, 'cpc':cpc, 'centros':centros}
+    cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso")
+    cefd = cpc.filter(centro = "CEFD").order_by("nome_curso")
+    ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso")
+    ccs = cpc.filter(centro = "CCS").order_by("nome_curso")
+    ccr = cpc.filter(centro = "CCR").order_by("nome_curso")
+    ccne = cpc.filter(centro = "CCR").order_by("nome_curso")
+    ctism = cpc.filter(centro = "CTISM").order_by("nome_curso")
+    ce = cpc.filter(centro = "CE").order_by("nome_curso")
+    cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso")
+    udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso")
+    cal = cpc.filter(centro = "CAL").order_by("nome_curso")
+    ct = cpc.filter(centro = "CT").order_by("nome_curso")
+
+    #cursos.sort()
+    return {'cpc':cpc, 'centros':centros, 'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd, 'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism, 'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal, 'ct':ct}
