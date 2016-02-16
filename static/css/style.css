@@ -76,3 +76,35 @@ footer{
   background: #3cb0fd;
   text-decoration: none;
 }
+
+#infoboard{
+    background-color: #ff802b;
+    padding: 50px;
+    text-align: center;
+}
+
+.info1{
+    background-color: #fff;
+    border-bottom: 2px solid #9e1b08;
+    border-top: 2px solid #9e1b08;
+    width: 700px;
+    margin: auto;
+    padding: 20px;
+}
+
+.info2{
+    background-color: #bad78e;
+    padding: 10px 20px 10px 20px;
+}
+
+.info3{
+    margin: 0;
+    background-color: #fffba0;
+    padding: 7px;
+}
+
+.info4{
+    margin: 0;
+    background-color: #fffba0;
+    padding: 7px;
+}

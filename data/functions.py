@@ -92,7 +92,8 @@ for a in areas:
 
 def fcurso(cod_curso):
     curso = cpc.filter(codigo_curso = cod_curso)
-    return {'curso':curso}
+    latest = curso.latest('ano')
+    return {'curso':curso, 'ultimo':latest}
 
 
 def fcursos():

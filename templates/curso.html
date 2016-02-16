@@ -33,12 +33,27 @@
             },
             series: [
             {
-                name: '{{ c.0.nome_curso }}',
+                name: 'CPC',
                 data: [{% for c in curso %} [{{c.ano}},{{ c.cpc_f2013 }}],{% endfor %}],
             },]
         });
     });
 </script>
+
+<div id="infoboard">
+
+    <div class="info1">
+    <h2>{{ ultimo.nome_curso }} UFSM</h2>
+        <div>
+            <h3>Ano da Última Avaliação:   {{ ultimo.ano }}</h3>
+        </div>
+            <h3>Índice da Última Avaliação: {{ ultimo.cpc_f2013 }}</h3>
+
+        <h3>Posicionamento no Estado: {{ ultimo.posicaorscpc }} </h3>
+        <h3>Posicionamento no País: {{ ultimo.posicaobrasilcpc }}</h3>
+</div>
+</div>
+<br/><br/><br/>
     <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
 
 {% endblock %}
