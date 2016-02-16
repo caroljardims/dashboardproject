@@ -94,18 +94,17 @@ def fcurso():
 
 
 def fcursos():
-    cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso")
-    cefd = cpc.filter(centro = "CEFD").order_by("nome_curso")
-    ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso")
-    ccs = cpc.filter(centro = "CCS").order_by("nome_curso")
-    ccr = cpc.filter(centro = "CCR").order_by("nome_curso")
-    ccne = cpc.filter(centro = "CCR").order_by("nome_curso")
-    ctism = cpc.filter(centro = "CTISM").order_by("nome_curso")
-    ce = cpc.filter(centro = "CE").order_by("nome_curso")
-    cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso")
-    udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso")
-    cal = cpc.filter(centro = "CAL").order_by("nome_curso")
-    ct = cpc.filter(centro = "CT").order_by("nome_curso")
+    cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ccne = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
 
-    #cursos.sort()
     return {'cpc':cpc, 'centros':centros, 'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd, 'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism, 'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal, 'ct':ct}
