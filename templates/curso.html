@@ -2,20 +2,19 @@
 
 {% block body%}
 {% load static %}
-{% for c in centros %}
 <script type="text/javascript">
     $(function () {
-        $('#container{{ c }}').highcharts({
+        $('#container').highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'CPC {{ c }} UFSM'
+                text: 'CPC {{ curso.0.nome_curso }} UFSM'
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'CPC {{ c }}'
+                    text: 'CPC'
                 }
             },
             tooltip: {
@@ -33,17 +32,13 @@
                 }
             },
             series: [
-            {% for d in d1 %}
-            {% if d.0.centro == c %}
             {
-                name: '{{ d.0.nome_curso }}',
-                data: [{% for x in d %} [{{x.ano}},{{ x.cpc_f2013 }}],{% endfor %}],
-            },
-            {% endif %}
-            {% endfor %}]
+                name: '{{ c.0.nome_curso }}',
+                data: [{% for c in curso %} [{{c.ano}},{{ c.cpc_f2013 }}],{% endfor %}],
+            },]
         });
     });
 </script>
-    <div id="container{{ c }}" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
-{% endfor %}
+    <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
+
 {% endblock %}
