@@ -7,7 +7,7 @@
 $(function () {
     $('#container').highcharts({
         chart: {
-            zoomType: ''
+            zoomType: 'xy'
         },
         title: {
             text: 'Evolução do IGC da UFSM'
@@ -56,6 +56,19 @@ $(function () {
             floating: true,
             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
         },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 5,
+                    borderRadius: 5,
+                    borderWidth: 1,
+                    borderColor:'#c6c6c6',
+                    backgroundColor: '#FFFFFF',
+                },
+            }
+        },
         series: [{
             name: 'IGC Contínuo',
             type: 'column',
@@ -85,7 +98,7 @@ $(function () {
 $(function () {
     $('#container_1').highcharts({
         chart: {
-            zoomType: ''
+            zoomType: 'xy'
         },
         title: {
             text: 'IGC MEC - Evolução da posição da UFSM entre as Universidades'
@@ -117,8 +130,8 @@ $(function () {
             labels: {
                 format: '{value}',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
+                    color: Highcharts.getOptions().colors[0],
+                },
             },
             opposite: true
         }],
@@ -126,26 +139,47 @@ $(function () {
             shared: true
         },
         legend: {
-            layout: 'vertical',
-            align: 'left',
+            layout: 'horizontal',
+            align: 'center',
             x: 120,
             verticalAlign: 'top',
             y: 20,
             floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+            backgroundColor:'#FFFFFF',
+            itemDistance: 20,
         },
-        series: [{
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 12,
+                    style: {
+                        fontSize: 12,
+                    }
+                },
+            },
+            scatter:{
+                marker:{
+                    radius: 10,
+                    fillColor: '#d9e0e7',
+                    lineWidth: 2,
+                    lineColor: '#456789'
+                },
+            },
+        },
+        series: [
+        {
             name: 'Total de instituições',
             type: 'column',
             yAxis: 1,
             data: [{% for i in total_ies %} {{i}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ''
-            }
-
+            },
         }, {
             name: 'Posição UFSM',
-            type: 'spline',
+            type: 'scatter',
             data: [{% for i in posicao %} {{i}}, {% endfor %}],
             tooltip: {
                 valueSuffix: 'º lugar'
