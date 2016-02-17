@@ -73,6 +73,7 @@ $(function () {
             name: 'IGC Contínuo',
             type: 'column',
             yAxis: 0,
+            color: '#ff8533',
             data: [{% for i in ufsm %} {{i.igc_continuo}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ''
@@ -81,6 +82,7 @@ $(function () {
         }, {
             name: 'IGC Faixa',
             type: 'spline',
+            color: '#494949',
             data: [{% for i in ufsm %} {{i.igc_faixa}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ''
@@ -162,9 +164,9 @@ $(function () {
             scatter:{
                 marker:{
                     radius: 10,
-                    fillColor: '#d9e0e7',
+                    fillColor: '#ffd0b0',
                     lineWidth: 2,
-                    lineColor: '#456789'
+                    lineColor: '#ff8533'
                 },
             },
         },
@@ -173,6 +175,7 @@ $(function () {
             name: 'Total de instituições',
             type: 'column',
             yAxis: 1,
+            color:'#ffa262',
             data: [{% for i in total_ies %} {{i}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ''
