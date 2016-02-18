@@ -5,3 +5,4 @@ from data.models import *
 admin.site.register(CPC)
 admin.site.register(TSG)
 admin.site.register(IGC)
+admin.site.register(CPC_GERAL)
