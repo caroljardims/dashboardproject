@@ -100,7 +100,7 @@ $(function () {
 $(function () {
     $('#container_1').highcharts({
         chart: {
-            zoomType: 'xy'
+            zoomType: ''
         },
         title: {
             text: 'IGC MEC - Evolução da posição da UFSM entre as Universidades'
@@ -132,8 +132,8 @@ $(function () {
             labels: {
                 format: '{value}',
                 style: {
-                    color: Highcharts.getOptions().colors[0],
-                },
+                    color: 'Highcharts.getOptions().colors[0]',
+            },
             },
             opposite: true
         }],
@@ -143,9 +143,9 @@ $(function () {
         legend: {
             layout: 'horizontal',
             align: 'center',
-            x: 120,
+            y: 30,
+            padding: 30,
             verticalAlign: 'top',
-            y: 20,
             floating: true,
             backgroundColor:'#FFFFFF',
             itemDistance: 20,
@@ -157,46 +157,44 @@ $(function () {
                     align: 'center',
                     padding: 12,
                     style: {
-                        fontSize: 12,
+                        fontSize: 20,
                     }
                 },
             },
             scatter:{
                 marker:{
-                    radius: 10,
+                    radius: 20,
+                    inside: true,
                     fillColor: '#ffd0b0',
                     lineWidth: 2,
                     lineColor: '#ff8533'
                 },
+                inside: true,
             },
         },
         series: [
         {
-            name: 'Total de instituições',
+            name: '--- Total de instituições',
             type: 'column',
+            pointWidth: 30,
             yAxis: 1,
             color:'#ffa262',
             data: [{% for i in total_ies %} {{i}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
-            },
-        }, {
-            name: 'Posição UFSM',
+        },
+        {
+            name: '   --- Posição UFSM',
             type: 'scatter',
             data: [{% for i in posicao %} {{i}}, {% endfor %}],
             tooltip: {
-                valueSuffix: 'º lugar'
-            }
+                enabled: false,
+        },
         }]
     });
 });
 </script>
 
-<div id="container_1" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+<div id="container_1" style="min-width: 310px; max-width: 1000px; height: 600px; margin: 0 auto"></div>
 
 <br/><br/><br/>
-
-
-
 
 {% endblock %}

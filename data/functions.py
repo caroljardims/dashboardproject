@@ -10,30 +10,31 @@ cpc = CPC.objects.all().order_by("ano")
 	# funções IGC #
 	###############
 def figc():
-	igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
-	context = {'ufsm':igc_ufsm}
-	ano = IGC.objects.values('ano').distinct().order_by("ano")
+    igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
 
-	posicao = []
-	total = []
-	for i in ano:
-	    base = 2009     #Gambiarra!!!
-	    #i.values()[0]  # TESTAR
-	    x = IGC.objects.filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
-	    x = x.filter(ano = i.values()[0])
+    context = {'ufsm':igc_ufsm}
+    ano = IGC.objects.values('ano').distinct().order_by("ano")
 
-	    value_igc = x.values('igc_continuo')
+    posicao = []
+    total = []
+    for i in ano:
+        base = 2009     #Gambiarra!!!
+        #i.values()[0]  # TESTAR
+        x = IGC.objects.filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
+        x = x.filter(ano = i.values()[0])
 
-	    y = IGC.objects.filter(ano = i.values()[0]).order_by("ano").count()
-	    total.append(y)
+        value_igc = x.values('igc_continuo')
 
-	    z = IGC.objects.filter(ano = i.values()[0])
-	    z = z.filter(igc_continuo__gte = value_igc).count() + 1
-	    posicao.append(z)
+        y = IGC.objects.filter(ano = i.values()[0]).order_by("ano").count()
+        total.append(y)
 
-	    base = base + 1
+        z = IGC.objects.filter(ano = i.values()[0])
+        z = z.filter(igc_continuo__gte = value_igc).count() + 1
+        posicao.append(z)
 
-	return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
+        base = base + 1
+
+    return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
 
 	###################
 	# funções Centros #
