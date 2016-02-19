@@ -16,7 +16,7 @@ cpc = CPC.objects.all().order_by("ano")
 igc = IGC.objects.all().order_by("ano")
 
 def index(request):
-    context = {}
+    context = geralufsm()
     return render_to_response('index.html', context)
 
 

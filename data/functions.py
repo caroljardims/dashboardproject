@@ -9,6 +9,12 @@ cpc = CPC.objects.all().order_by("ano")
 	###############
 	# funções IGC #
 	###############
+
+def geralufsm():
+    d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
+    print d1
+    return {'d1':d1}
+
 def figc():
     igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
 
@@ -40,34 +46,24 @@ def figc():
 	# funções Centros #
 	###################
 def fcentros():
-	centros = []
-	d1 = []
-	d2 = []
+    d2 = []
 
-	for t in tsg:
-	   centros.append(t.centro)
-	centros = list(set(centros))
+    d1 = tsg.filter(centro = "CESNORS FW").order_by("ano").values("centro","ano","tsgcentro").distinct()
+    #d1 = d1.latest('ano')
+    print d1
+    centros = []
+    for c in cpc:
+        centros.append(c.id_centro)
+    centros = list(set(centros))
 
-	for c in centros:
-	    x = []
-	    for t in tsg:
-	        if c == t.centro:
-	            x.append(t)
-	    d1.append(x)
+    for c in centros:
+        x = []
+        for t in cpc:
+            if c == t.id_centro:
+                x.append(t)
+        d2.append(x)
 
-	centros = []
-	for c in cpc:
-	    centros.append(c.id_centro)
-	centros = list(set(centros))
-
-	for c in centros:
-	    x = []
-	    for t in cpc:
-	        if c == t.id_centro:
-	            x.append(t)
-	    d2.append(x)
-
-	return {'d1':d1, 'd2':d2}
+    return {'d1':d1, 'd2':d2}
 
 	##################
 	# funções Cursos #
@@ -124,6 +120,10 @@ def fcursos():
             if c == t.id_centro:
                 x.append(t)
         d2.append(x)
+
+    #d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
+    print d1
+
     cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
     cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
     ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
