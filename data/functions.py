@@ -139,5 +139,6 @@ def fcursos():
             'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal, 
             'ct':ct}
 
+def favaliacao(cod_curso):
 
-
+    return False

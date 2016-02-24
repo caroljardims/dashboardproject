@@ -31,3 +31,11 @@ def cursos(request):
 def curso(request, cod_curso):
     context = fcurso(cod_curso)
     return render(request,"curso.html", context)
+
+def list(request):
+	context = fcursos()
+	return render(request,"enade.html", context)
+
+def avaliacaoCurso(request, cod_curso):
+	context = favaliacao(cod_curso)
+	return render(request, "avaliacao.html", context)
