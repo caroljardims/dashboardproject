@@ -94,13 +94,15 @@ def fcursos():
     d1 = []
     d2 = []
 
+    
+
     for t in tsg:
        centros.append(t.centro)
     centros = list(set(centros))
 
     for c in centros:
         x = []
-        for t in tsg:
+        for t in tsg.filter(ano=2015):
             if c == t.centro:
                 x.append(t)
         d1.append(x)
@@ -112,13 +114,10 @@ def fcursos():
 
     for c in centros:
         x = []
-        for t in cpc:
+        for t in cpc.filter(ano=2014):
             if c == t.id_centro:
                 x.append(t)
         d2.append(x)
-
-    #d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
-    print d1
 
     cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
     cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()

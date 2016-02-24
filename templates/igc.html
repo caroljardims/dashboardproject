@@ -174,7 +174,7 @@ $(function () {
         },
         series: [
         {
-            name: '--- Total de instituições',
+            name: Total de instituições',
             type: 'column',
             pointWidth: 30,
             yAxis: 1,
@@ -182,7 +182,7 @@ $(function () {
             data: [{% for i in total_ies %} {{i}}, {% endfor %}],
         },
         {
-            name: '   --- Posição UFSM',
+            name: 'Posição UFSM',
             type: 'scatter',
             data: [{% for i in posicao %} {{i}}, {% endfor %}],
             tooltip: {
