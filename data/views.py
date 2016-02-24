@@ -24,9 +24,13 @@ def igc(request):
     context = figc()
     return render_to_response('igc.html', context)
 
-def cursos(request):
+def centros(request):
     context = fcursos()
-    return render(request,"cursos.html", context)
+    return render(request,"centros.html", context)
+
+def centro(request, cod_centro):
+    context = fcentro(cod_centro)
+    return render(request,"centro.html", context)
 
 def curso(request, cod_curso):
     context = fcurso(cod_curso)

@@ -83,6 +83,11 @@ for a in areas:
             x.append(c)
     d1.append(x)
 
+def fcentro(cod_centro):
+    centro = cpc.filter(id_centro = cod_centro)
+    latest = centro.latest('ano')
+    return {'centro':centro, 'ultimo':latest}
+
 def fcurso(cod_curso):
     curso = cpc.filter(codigo_curso = cod_curso)
     latest = curso.latest('ano')
@@ -94,15 +99,15 @@ def fcursos():
     d1 = []
     d2 = []
 
-    
-
+    anotsg = tsg.latest('ano').ano
+    anocpc = cpc.latest('ano').ano
     for t in tsg:
        centros.append(t.centro)
     centros = list(set(centros))
 
     for c in centros:
         x = []
-        for t in tsg.filter(ano=2015):
+        for t in tsg.filter(ano=anotsg):
             if c == t.centro:
                 x.append(t)
         d1.append(x)
@@ -114,28 +119,28 @@ def fcursos():
 
     for c in centros:
         x = []
-        for t in cpc.filter(ano=2014):
+        for t in cpc.filter(ano=anocpc):
             if c == t.id_centro:
                 x.append(t)
         d2.append(x)
 
-    cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ccne = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
-    ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+    cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ccne = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+    ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
 
-    return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros, 
-            'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd, 
-            'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism, 
-            'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal, 
+    return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros,
+            'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd,
+            'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism,
+            'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal,
             'ct':ct}
 
 def favaliacao(cod_curso):

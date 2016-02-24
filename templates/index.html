@@ -60,7 +60,7 @@ $(function () {
             text: 'Evolução do CPC por Triênio da Avaliação (ENADE)'
         },
         subtitle: {
-            text: 'UFSM, RS, Brail'
+            text: 'UFSM, RS, Brasil'
         },
         xAxis: [{
             categories: [2009, 2010, 2011, 2012, 2013, 2014],
@@ -94,7 +94,7 @@ $(function () {
                 format: '{value}',
                 style: {
                     color: Highcharts.getOptions().colors[0]
-                }, 
+                },
             }
 
         }, { // Tertiary yAxis
@@ -103,7 +103,7 @@ $(function () {
                 text: '',
                 style: {
                     color: Highcharts.getOptions().colors[1]
-                }, 
+                },
                 enabled: false
             },
             labels: {
@@ -126,12 +126,14 @@ $(function () {
             verticalAlign: 'top',
             y: 55,
             floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+            backgroundColor: '#FFFFFF'
         },
         series: [{
             name: 'UFSM',
             type: 'column',
             yAxis: 1,
+            color:'#ffa262',
+            // dados reais adicionados manualmente
             data: [3.48, 3.58, 3.24, 3.18, 3.04, 3.24],
             tooltip: {
                 valueSuffix: ''
@@ -141,6 +143,8 @@ $(function () {
             name: 'CPC Brasil',
             type: 'spline',
             yAxis: 2,
+            color: '#3e8513',
+            // dados reais adicionados manualmente
             data: [2.33, 2, 2, 2, 2, 2.66],
             marker: {
                 enabled: true
@@ -153,6 +157,8 @@ $(function () {
         }, {
             name: 'CPC RS',
             type: 'spline',
+            color: '#d60707',
+            // dados reais adicionados manualmente
             data: [2.75, 3, 3, 3, 3, 2.91],
             tooltip: {
                 valueSuffix: ' '
