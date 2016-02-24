@@ -121,6 +121,19 @@ class CPC(models.Model):
     distanciapublicarsenade = models.FloatField(default=0)
     distanciasulenade = models.FloatField(default=0)
     distanciaifesenade = models.FloatField(default=0)
+    media_ies_br = models.FloatField(default=0)
+    media_ies_sul = models.FloatField(default=0)
+    media_ies_rs = models.FloatField(default=0)
+    media_ifes_br = models.FloatField(default=0)
+    media_ifes_sul = models.FloatField(default=0)
+    media_ifes_rs = models.FloatField(default=0)
+    max_ies_br = models.FloatField(default=0)
+    max_ies_sul = models.FloatField(default=0)
+    max_ies_rs = models.FloatField(default=0)
+    max_ifes_br = models.FloatField(default=0)
+    max_ifes_sul = models.FloatField(default=0)
+    max_ifes_rs = models.FloatField(default=0)
+    CPC_FAIXA = models.IntegerField(default=0)
     def __unicode__(self):
         return self.nome_curso + " " + str(self.ano)
 
@@ -138,7 +151,7 @@ class CPC_GERAL(models.Model):
     sigla_ies = models.CharField(default='', max_length=4)
     publica = models.IntegerField(default=0)
     cat_adm = models.CharField(default='', max_length=7)
-    org_cad = models.CharField(default='', max_length=22)
+    org_acad = models.CharField(default='', max_length=22)
     municipio = models.CharField(default='', max_length=10)
     nr = models.IntegerField(default=0, null=True)
     no = models.IntegerField(default=0)
@@ -150,3 +163,13 @@ class CPC_GERAL(models.Model):
     id_centro = models.IntegerField(default=0)
     def __unicode__(self):
         return self.sigla_ies + " " + str(self.ano)
+
+
+class MUNICIPIOS(models.Model):
+    CODIGO_IBGE = models.IntegerField(default=0)
+    MUNICIPIO = models.CharField(max_length=100, default='')
+    UF = models.CharField(max_length=2, default='')
+    LATITUDE = models.FloatField(default=0)
+    LONGITUDE = models.FloatField(default=0)
+    def __unicode__(self):
+        return self.municipio + " " + str(LATITUDE) + " " + str(LONGITUDE)
