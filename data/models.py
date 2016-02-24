@@ -34,11 +34,11 @@ class TSG(models.Model):
 class CPC(models.Model):
     _id = models.IntegerField(default=0)
     ano = models.IntegerField(default=0)
-    municipio = models.CharField(default='', max_length=50)
+    municipio = models.CharField(max_length=50)
     codigo_curso = models.IntegerField(default=0)
-    nome_curso = models.CharField(default='', max_length=50)
-    centro = models.CharField(default='', max_length=10)
-    cpc_antigo = models.CharField(default='', max_length=4)
+    nome_curso = models.CharField(max_length=50)
+    centro = models.CharField(max_length=10)
+    cpc_antigo = models.CharField(max_length=4)
     nc = models.FloatField(default=0)
     nidd = models.FloatField(default=0)
     nm = models.FloatField(default=0)
@@ -138,8 +138,8 @@ class CPC(models.Model):
         return self.nome_curso + " " + str(self.ano)
 
 class CPC_GERAL(models.Model):
-    area = models.CharField(default='', max_length=23, null=False, primary_key=True)
-    uf = models.CharField(default='', max_length=2)
+    area = models.CharField(max_length=23)
+    uf = models.CharField(max_length=2)
     regiao = models.IntegerField(default=0)
     ano = models.IntegerField(default=0, null=True)
     cpccontinuo = models.FloatField(default=0)
@@ -147,12 +147,12 @@ class CPC_GERAL(models.Model):
     nidd = models.FloatField(default=0)
     nm = models.IntegerField(default=0, null=True)
     nd = models.IntegerField(default=0, null=True)
-    nome_ies = models.CharField(default='', max_length=43)
-    sigla_ies = models.CharField(default='', max_length=4)
+    nome_ies = models.CharField(max_length=43)
+    sigla_ies = models.CharField(max_length=10)
     publica = models.IntegerField(default=0)
-    cat_adm = models.CharField(default='', max_length=7)
-    org_acad = models.CharField(default='', max_length=22)
-    municipio = models.CharField(default='', max_length=10)
+    cat_adm = models.CharField(max_length=7)
+    org_acad = models.CharField(max_length=22)
+    municipio = models.CharField(max_length=10)
     nr = models.IntegerField(default=0, null=True)
     no = models.IntegerField(default=0)
     cpc_faixa = models.IntegerField(default=0, null=True)
@@ -167,17 +167,17 @@ class CPC_GERAL(models.Model):
 
 class MUNICIPIOS(models.Model):
     CODIGO_IBGE = models.IntegerField(default=0)
-    MUNICIPIO = models.CharField(max_length=100, default='')
-    UF = models.CharField(max_length=2, default='')
+    MUNICIPIO = models.CharField(max_length=100)
+    UF = models.CharField(max_length=2)
     LATITUDE = models.FloatField(default=0)
     LONGITUDE = models.FloatField(default=0)
     def __unicode__(self):
         return self.municipio + " " + str(LATITUDE) + " " + str(LONGITUDE)
 
 class MATRICULADOS_SISU(models.Model):
-    campus = models.CharField(default='', max_length=50)
-    area = models.CharField(default='', max_length=50)
-    uf = models.CharField(default='', max_length=2)
-    municipio = models.CharField(default='', max_length=50)
+    campus = models.CharField(max_length=50)
+    area = models.CharField(max_length=50)
+    uf = models.CharField(max_length=2)
+    municipio = models.CharField(max_length=50)
     def __unicode__(self):
         return self.municipio + " " + self.uf
