@@ -173,3 +173,11 @@ class MUNICIPIOS(models.Model):
     LONGITUDE = models.FloatField(default=0)
     def __unicode__(self):
         return self.municipio + " " + str(LATITUDE) + " " + str(LONGITUDE)
+
+class MATRICULADOS_SISU(models.Model):
+    campus = models.CharField(default='', max_length=50)
+    area = models.CharField(default='', max_length=50)
+    uf = models.CharField(default='', max_length=2)
+    municipio = models.CharField(default='', max_length=50)
+    def __unicode__(self):
+        return self.municipio + " " + self.uf

@@ -24,8 +24,6 @@ def figc():
     posicao = []
     total = []
     for i in ano:
-        base = 2009     #Gambiarra!!!
-        #i.values()[0]  # TESTAR
         x = IGC.objects.filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
         x = x.filter(ano = i.values()[0])
 
@@ -37,8 +35,6 @@ def figc():
         z = IGC.objects.filter(ano = i.values()[0])
         z = z.filter(igc_continuo__gte = value_igc).count() + 1
         posicao.append(z)
-
-        base = base + 1
 
     return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
 
@@ -137,4 +133,11 @@ def fcursos():
     cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
     ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
 
-    return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros, 'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd, 'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism, 'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal, 'ct':ct}
+    return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros, 
+            'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd, 
+            'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism, 
+            'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal, 
+            'ct':ct}
+
+
+
