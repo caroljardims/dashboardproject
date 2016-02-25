@@ -64,7 +64,7 @@ $(function () {
         }],
         yAxis: [{ // Primary yAxis
             labels: {
-                format: '{}',
+                format: '{value}',
                 style: {
                     color: Highcharts.getOptions().colors[2]
                 },
@@ -115,19 +115,32 @@ $(function () {
         tooltip: {
             shared: true
         },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 5,
+                    borderRadius: 5,
+                    borderWidth: 1,
+                    borderColor:'#c6c6c6',
+                    backgroundColor: '#FFFFFF',
+                },
+            }
+        },
         legend: {
             layout: 'vertical',
             align: 'left',
-            x: 80,
+            x: 30,
             verticalAlign: 'top',
-            y: 55,
+            y: 25,
             floating: true,
             backgroundColor: '#FFFFFF'
         },
         series: [{
             name: 'UFSM',
             type: 'column',
-            yAxis: 1,
+            //yAxis: 1,
             color:'#ffa262',
             // dados reais adicionados manualmente
             data: [3.48, 3.58, 3.24, 3.18, 3.04, 3.24],
@@ -138,10 +151,10 @@ $(function () {
         }, {
             name: 'CPC Brasil',
             type: 'spline',
-            yAxis: 2,
+            //yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [2.33, 2, 2, 2, 2, 2.66],
+            data: [2.33, 2.36, 2.49, 2.61, 2.66, 2.66],
             marker: {
                 enabled: true
             },
@@ -155,7 +168,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [2.75, 3, 3, 3, 3, 2.91],
+            data: [2.75, 2.78, 2.90, 2.96, 2.97, 2.91],
             tooltip: {
                 valueSuffix: ' '
             }
