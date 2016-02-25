@@ -33,31 +33,17 @@ $(function () {
             categories: [{% for c in curso %} {{ c.ano }}, {% endfor %}],
             crosshair: true
         }],
-        yAxis: [{
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
-            },
-            opposite: true
-
-        }, { // Secondary yAxis
+        yAxis: [ { // 2 yAxis
             gridLineWidth: 0,
+            max: 5,
+            tickInterval: 1,
             title: {
                 text: 'CPC UFSM',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
             },
             labels: {
                 format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                },
             }
-
-        }, { // Tertiary yAxis
+        }, { // 3 yAxis
             title: {
                 text: 'RS',
             },
@@ -65,7 +51,7 @@ $(function () {
             opposite: true,
             min: 0,
         },
-        { // Tertiary yAxis
+        { // 4 yAxis
             title: {
                 text: 'Sul',
             },
@@ -73,14 +59,25 @@ $(function () {
             opposite: true,
             min: 0,
         },
-        { // Tertiary yAxis
+        { // 5 yAxis
             title: {
                 text: 'Brasil',
             },
             gridLineWidth: 1,
             opposite: true,
             min: 0,
-        }],
+        },
+        { // 6 yAxis
+            title: {
+                text: 'Faixa',
+            },
+            gridLineWidth: 1,
+            opposite: false,
+            max: 5,
+            min: 0,
+            tickInterval: 1,
+        }
+        ],
         tooltip: {
             shared: true
         },
@@ -98,21 +95,36 @@ $(function () {
                 dataLabels: {
                     enabled: true,
                     align: 'center',
-                    padding: 5,
+                    style: {
+                        fontSize: 12,
+                    },
                 },
-            }
+            },
+            scatter:{
+                marker:{
+                    symbol: 'circle',
+                    radius: 5,
+                    inside: true,
+                    fillColor: '#bd0cfb',
+                    lineWidth: 2,
+                    lineColor: '#710796'
+                },
+                symbol: 'circle',
+                inside: true,
+            },
         },
         series: [
         {
             name: 'CPC',
             type: 'column',
-            yAxis: 1,
+            yAxis: 0,
             color:'#ffa262',
             data: [{% for c in curso %} {{ c.cpc_f2013 }}, {% endfor %}],
         },
         {
             name: 'Posição RS',
             type: 'spline',
+            yAxis: 1,
             color: '#d60707',
             data: [{% for c in curso %} {{ c.posicaorscpc }}, {% endfor %}],
             dashStyle: 'dot',
@@ -123,6 +135,7 @@ $(function () {
         {
             name: 'Posição Sul',
             type: 'spline',
+            yAxis: 2,
             color: '#2b99ff',
             data: [{% for c in curso %} {{ c.posicaosulcpc }}, {% endfor %}],
             dashStyle: 'shortdot',
@@ -133,7 +146,7 @@ $(function () {
         {
             name: 'Posição Brasil',
             type: 'spline',
-            yAxis: 2,
+            yAxis: 3,
             color: '#3e8513',
             data: [{% for c in curso %} {{ c.posicaobrasilcpc }}, {% endfor %}],
             marker: {
@@ -142,6 +155,20 @@ $(function () {
             dashStyle: 'solid',
             tooltip: {
                 valueSuffix: 'º'
+            }
+        },
+        {
+            name: 'Faixa',
+            type: 'scatter',
+            yAxis: 4,
+            color: '#bd0cfb',
+            data: [{% for c in curso %} {{ c.CPC_FAIXA }}, {% endfor %}],
+            marker: {
+                enabled: true
+            },
+            dashStyle: 'solid',
+            tooltip: {
+                valueSuffix: ''
             }
         },
         ]
