@@ -65,20 +65,10 @@ $(function () {
             }
 
         }, { // Tertiary yAxis
-            gridLineWidth: 0,
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                text: 'Posições',
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            },
+            gridLineWidth: 0,
             opposite: true,
             min: 0,
         }],
@@ -141,5 +131,5 @@ $(function () {
 });
 </script>
 
-    <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
+    <div id="container" style="min-width: 310px; max-width: 1050px; height: 500px; margin: 0 auto"></div><br/><br/>
 {% endblock %}
