@@ -2,43 +2,6 @@
 
 {% block body%}
 {% load static %}
-<script type="text/javascript">
-    $(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'CPC {{ curso.0.nome_curso }} UFSM'
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'CPC'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                     borderWidth: 1,
-                }
-            },
-            series: [
-            {
-                name: 'CPC',
-                data: [{% for c in curso %} [{{c.ano}},{{ c.cpc_f2013 }}],{% endfor %}],
-            },]
-        });
-    });
-</script>
 
 <div id="infoboard">
 <h2>CPC {{ ultimo.nome_curso }} UFSM</h2><br/>
@@ -54,6 +17,128 @@
     </div>
 </div>
 <br/><br/><br/>
-    <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
+<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Evolução do CPC por Triênio da Avaliação (ENADE)'
+        },
+        subtitle: {
+            text: 'UFSM, RS, Brasil'
+        },
+        xAxis: [{
+            categories: [{% for c in curso %} {{ c.ano }}, {% endfor %}],
+            crosshair: true
+        }],
+        yAxis: [{
+            labels: {
+                format: '{}',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                },
+                enabled: false
+            },
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
 
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'CPC UFSM',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                },
+            }
+
+        }, { // Tertiary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                },
+                enabled: false
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true,
+            min: 0,
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 80,
+            verticalAlign: 'top',
+            y: 55,
+            floating: true,
+            backgroundColor: '#FFFFFF'
+        },
+        series: [
+        {
+            name: 'CPC',
+            type: 'column',
+            yAxis: 1,
+            color:'#ffa262',
+            data: [{% for c in curso %} {{ c.cpc_f2013 }}, {% endfor %}],
+        },
+        {
+            name: 'Posição Brasil',
+            type: 'spline',
+            yAxis: 2,
+            color: '#3e8513',
+            data: [{% for c in curso %} {{ c.posicaobrasilcpc }}, {% endfor %}],
+            marker: {
+                enabled: true
+            },
+            dashStyle: 'solid',
+            tooltip: {
+                valueSuffix: 'º'
+            }
+        },
+        {
+            name: 'Posição Sul',
+            type: 'spline',
+            color: '#2b99ff',
+            data: [{% for c in curso %} {{ c.posicaosulcpc }}, {% endfor %}],
+            dashStyle: 'shortdot',
+            tooltip: {
+                valueSuffix: 'º'
+            }
+        },
+        {
+            name: 'Posição RS',
+            type: 'spline',
+            color: '#d60707',
+            data: [{% for c in curso %} {{ c.posicaorscpc }}, {% endfor %}],
+            dashStyle: 'dot',
+            tooltip: {
+                valueSuffix: 'º'
+            }
+        }]
+    });
+});
+</script>
+
+    <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
 {% endblock %}

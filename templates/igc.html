@@ -179,12 +179,12 @@ $(function () {
             pointWidth: 30,
             yAxis: 1,
             color:'#ffa262',
-            data: [{% for i in total_ies %} {{i}}, {% endfor %}],
+            data: [{% for i in total_ies %} {{ i }}, {% endfor %}],
         },
         {
             name: 'Posição UFSM',
             type: 'scatter',
-            data: [{% for i in posicao %} {{i}}, {% endfor %}],
+            data: [{% for i in posicao %} {{ i }}, {% endfor %}],
             tooltip: {
                 enabled: false,
         },
