@@ -9,7 +9,7 @@
                 type: 'column'
             },
             title: {
-                text: 'CPC {{ centro.0.centro }}'
+                text: 'Evolução CPC {{ centro.0.centro }}'
             },
             yAxis: {
                 min: 0,
@@ -39,22 +39,16 @@
         });
     });
 </script>
-
-<!-- >
-<div id="infoboard">
-<h2>CPC {{ ultimo.nome_curso }} UFSM</h2><br/>
-    <div class="info1">
-        <img class="left" src="{% static "img/icon_avaliacao.png" %}" />
-        <b>Ano da Última Avaliação:</b>   <p>{{ ultimo.ano }}</p>
-        <b>Índice da Última Avaliação:</b> <p>{{ ultimo.cpc_f2013 }}</p>
-    </div>
-    <div class="info2">
-        <img class="left" src="{% static "img/icon_posicao.png" %}" />
-        <b>Posicionamento no Estado:</b> <p> {{ ultimo.posicaorscpc }} </p>
-        <b>Posicionamento no País:</b> <p>{{ ultimo.posicaobrasilcpc }}</p>
+<div class="cursosArea">
+    <div id='dropdownselect'>
+        <ul>
+            {% for c in cursos %}
+            <li class='active has-sub'><a href='/curso/{{ c.codigo_curso }}'><span> {{ c.nome_curso }} </span></a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
-<-->
 <br/><br/><br/>
     <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
 

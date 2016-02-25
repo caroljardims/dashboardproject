@@ -29,7 +29,7 @@ header{
 article {
 	padding-top: 250px;
 	background-color: #f6f6f6;
-	min-width: 750px;
+	min-width: 900px;
 	max-width: 1300px;
 	width: 85%;
 	height: auto;
@@ -38,13 +38,13 @@ article {
 }
 
 footer{
-	background-color: #222;
-	color: #513052;
-	margin: 0px;
-	position: absolute;
-	width: 100%;
-	height: 100px;
-            padding: 50px;
+    background-color: #222;
+    color: #513052;
+    margin: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    padding: 50px;
 }
 
 #chart{
@@ -56,9 +56,9 @@ footer{
 	padding:40px;
 }
 
-#cursosArea{
+.cursosArea{
         padding: 60px;
-        background-color: #75af1d;
+        background-color: #ffa700;
 }
 
 .btn {
@@ -92,7 +92,7 @@ footer{
     border-bottom: 2px solid #69b7b1;
     border-top: 2px solid #69b7b1;
     color: #333333;
-    width: 410px;
+    width: 40%;
     height: 200px;
     text-align: left;
     margin: auto;
@@ -105,7 +105,7 @@ footer{
     border-bottom: 2px solid #ff6700;
     border-top: 2px solid #ff6700;
     color: #333333;
-    width: 410px;
+    width: 40%;
     height: 200px;
     text-align: left;
     margin: auto;

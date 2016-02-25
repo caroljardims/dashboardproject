@@ -22,7 +22,7 @@
   font-weight: normal;
 }
 #cssmenu a:hover {
-  background: #2580a2 url("images/hover.gif") left center no-repeat;
+  background: url("images/hover.gif") left center no-repeat;
   color: #fff;
   padding-bottom: 8px;
 }
