@@ -24,23 +24,16 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Evolução do CPC por Triênio da Avaliação (ENADE)'
+            text: 'Evolução do CPC por Triênio da Avaliação (ENADE) de {{ curso.0.nome_curso }} e suas posições no Estado (RS), Região Sul e Brasil'
         },
         subtitle: {
-            text: 'UFSM, RS, Brasil'
+            text: 'UFSM, RS, Sul, Brasil'
         },
         xAxis: [{
             categories: [{% for c in curso %} {{ c.ano }}, {% endfor %}],
             crosshair: true
         }],
         yAxis: [{
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
-            },
             title: {
                 text: '',
                 style: {
@@ -66,9 +59,25 @@ $(function () {
 
         }, { // Tertiary yAxis
             title: {
-                text: 'Posições',
+                text: 'RS',
             },
             gridLineWidth: 0,
+            opposite: true,
+            min: 0,
+        },
+        { // Tertiary yAxis
+            title: {
+                text: 'Sul',
+            },
+            gridLineWidth: 1,
+            opposite: true,
+            min: 0,
+        },
+        { // Tertiary yAxis
+            title: {
+                text: 'Brasil',
+            },
+            gridLineWidth: 1,
             opposite: true,
             min: 0,
         }],
@@ -83,6 +92,15 @@ $(function () {
             y: 55,
             floating: true,
             backgroundColor: '#FFFFFF'
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 5,
+                },
+            }
         },
         series: [
         {
@@ -131,5 +149,5 @@ $(function () {
 });
 </script>
 
-    <div id="container" style="min-width: 310px; max-width: 1050px; height: 500px; margin: 0 auto"></div><br/><br/>
+    <div id="container" style="min-width: 310px; width: 100%; height: 500px; margin: 0 auto"></div><br/><br/>
 {% endblock %}
