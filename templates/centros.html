@@ -165,11 +165,11 @@
             series: [
             {% for d in d2 %}
             {
-                name: '{{ d.0.centro }}',
-                data: [{% for x in d %} [{{ x.ano }}, {{ x.cpc_f2013 }}],{% endfor %}],
+                name: '{{ d.centro }}',
+                data: [{{ d.ano }}, {{ d.cpc_f2013 }}],
 
-            },
-            {% endfor %}]
+            },{% endfor %}
+            ]
         });
     });
 </script>
@@ -177,5 +177,7 @@
 <div id="container2" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
 <br/><br/><br/>
+
+{% for d in d2 %}[{{ d.ano }}, {{ d.cpc_f2013 }}, {{ d.centro }}],{% endfor %}
 
 {% endblock %}
