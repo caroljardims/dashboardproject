@@ -2,6 +2,7 @@
 from data.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import unicodedata
+from django.db.models import Avg
 
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by('ano')
@@ -144,5 +145,105 @@ def fcursos():
             'ct':ct}
 
 def favaliacao(cod_curso):
+    a = [
+        'UNICAMP',
+        'UFRGS',
+        'UNILA',
+        'UFSM',
+        'UNIFESP',
+        'UFSC',
+        'UFRJ',
+        'UFV',
+        'UFABC',
+        'UFLA',
+        'UNB',
+        'UFSCAR',
+        'UNESP',
+        'UFCSPA',
+        'UENF',
+        'UFMG',
+        'UFJF',
+        'UFPE',
+        'PUC-RJ',
+        'UFPR'
+    ]
 
-    return False
+    ies = [
+        'UNIVERSIDADE ESTADUAL DE CAMPINAS',
+        'UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL',
+        'UNIVERSIDADE FEDERAL DA INTEGRAÇÃO LATINO-AMERICANA',
+        'UNIVERSIDADE FEDERAL DE SANTA MARIA',
+        'UNIVERSIDADE FEDERAL DE SÃO PAULO',
+        'UNIVERSIDADE FEDERAL DE SANTA CATARINA',
+        'UNIVERSIDADE FEDERAL DO RIO DE JANEIRO',
+        'UNIVERSIDADE FEDERAL DE VIÇOSA',
+        'UNIVERSIDADE FEDERAL DO ABC',
+        'UNIVERSIDADE FEDERAL DE LAVRAS',
+        'UNIVERSIDADE DE BRASÍLIA',
+        'UNIVERSIDADE FEDERAL DE SÃO CARLOS',
+        'UNIVERSIDADE ESTADUAL PAULISTA',
+        'UNIVERSIDADE FEDERAL DE CIÊNCIAS DA SAÚDE DE PORTO ALEGRE',
+        'UNIVERSIDADE ESTADUAL DO NORTE FLUMINENSE DARCY RIBEIRO',
+        'UNIVERSIDADE FEDERAL DE MINAS GERAIS',
+        'UNIVERSIDADE FEDERAL DE JUIZ DE FORA',
+        'UNIVERSIDADE FEDERAL DE PELOTAS',
+        'PONTIFÍCIA UNIVERSIDADE CATÓLICA DO RIO DE JANEIRO',
+        'UNIVERSIDADE FEDERAL DO PARANÁ'
+    ]
+
+    sigla = []
+    nidd = []
+    nc = []
+    nm = []
+    nd = []
+    nr = []
+    no = []
+    nf = []
+    na =[]
+
+    tmp = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).values('ano').order_by('ano').distinct()
+    ano = tmp.latest('ano').values()[0]
+    k = 0
+    for i in ies:
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nidd', 'nm', 'nd', 'nc', 'no', 'nf', 'nr', 'na')
+        nc.append(query.values('nc').first())
+        nm.append(query.values('nm').first())
+        nd.append(query.values('nd').first())
+        nr.append(query.values('nr').first())
+        no.append(query.values('no').first())
+        nf.append(query.values('nf').first())
+        na.append(query.values('na').first())
+        nidd.append(query.values('nidd').first())
+        sigla.append(a[k])
+        k = k + 1
+
+    media_nc_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nc'))
+    media_nc_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nc'))
+    
+    media_nm_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nm'))
+    media_nm_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nm'))
+
+    media_nd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nd'))
+    media_nd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nd'))
+
+    media_nr_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nr'))
+    media_nr_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nr'))
+
+    media_no_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('no'))
+    media_no_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('no'))
+
+    media_nf_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nf'))
+    media_nf_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nf'))
+
+    media_na_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('na'))
+    media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
+
+    media_nidd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nidd'))
+    media_nidd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nidd'))
+
+    return {'ano':ano, 'sigla': sigla, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
+            'media_nc_br': media_nc_br, 'media_nc_rs': media_nc_rs, 'media_nm_br': media_nm_br, 'media_nm_rs': media_nm_rs,
+            'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
+            'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
+            'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs
+    }

@@ -62,10 +62,6 @@ $(function () {
                     enabled: true,
                     align: 'center',
                     padding: 5,
-                    borderRadius: 5,
-                    borderWidth: 1,
-                    borderColor:'#c6c6c6',
-                    backgroundColor: '#FFFFFF',
                 },
             }
         },
@@ -179,12 +175,12 @@ $(function () {
             pointWidth: 30,
             yAxis: 1,
             color:'#ffa262',
-            data: [{% for i in total_ies %} {{i}}, {% endfor %}],
+            data: [{% for i in total_ies %} {{ i }}, {% endfor %}],
         },
         {
             name: 'Posição UFSM',
             type: 'scatter',
-            data: [{% for i in posicao %} {{i}}, {% endfor %}],
+            data: [{% for i in posicao %} {{ i }}, {% endfor %}],
             tooltip: {
                 enabled: false,
         },

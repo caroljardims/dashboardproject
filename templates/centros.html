@@ -54,21 +54,6 @@
                      <li class='has-sub'><a href='/curso/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
-            </li>
-            <li class='active has-sub'><a href='/centro/{{ cesnorsfw.0.id_centro }}'><span> CESNORS FW </span></a>
-                <ul>
-                {% for c in cesnorsfw %}
-                     <li class='has-sub'><a href='/curso/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
-                {% endfor %}
-                </ul>
-            </li>
-            <li class='active has-sub'><a href='/centro/{{ cesnorspm.0.id_centro }}'><span> CESNORS PM</span></a>
-                <ul>
-                {% for c in cesnorspm %}
-                     <li class='has-sub'><a href='/curso/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
-                {% endfor %}
-                </ul>
-            </li>
             <li class='active has-sub'><a href='/centro/{{ ct.0.id_centro }}'><span> CT </span></a>
                 <ul>
                 {% for c in ct %}
