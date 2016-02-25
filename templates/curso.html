@@ -103,6 +103,26 @@ $(function () {
             data: [{% for c in curso %} {{ c.cpc_f2013 }}, {% endfor %}],
         },
         {
+            name: 'Posição RS',
+            type: 'spline',
+            color: '#d60707',
+            data: [{% for c in curso %} {{ c.posicaorscpc }}, {% endfor %}],
+            dashStyle: 'dot',
+            tooltip: {
+                valueSuffix: 'º'
+            },
+        },
+        {
+            name: 'Posição Sul',
+            type: 'spline',
+            color: '#2b99ff',
+            data: [{% for c in curso %} {{ c.posicaosulcpc }}, {% endfor %}],
+            dashStyle: 'shortdot',
+            tooltip: {
+                valueSuffix: 'º'
+            }
+        },
+        {
             name: 'Posição Brasil',
             type: 'spline',
             yAxis: 2,
@@ -116,26 +136,7 @@ $(function () {
                 valueSuffix: 'º'
             }
         },
-        {
-            name: 'Posição Sul',
-            type: 'spline',
-            color: '#2b99ff',
-            data: [{% for c in curso %} {{ c.posicaosulcpc }}, {% endfor %}],
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: 'º'
-            }
-        },
-        {
-            name: 'Posição RS',
-            type: 'spline',
-            color: '#d60707',
-            data: [{% for c in curso %} {{ c.posicaorscpc }}, {% endfor %}],
-            dashStyle: 'dot',
-            tooltip: {
-                valueSuffix: 'º'
-            }
-        }]
+        ]
     });
 });
 </script>
