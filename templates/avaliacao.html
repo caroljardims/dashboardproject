@@ -15,7 +15,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_nc %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -37,7 +37,7 @@ $(function () {
         }, { // Secondary yAxis
             gridLineWidth: 0,
             title: {
-                text: 'ENADE UFSM',
+                text: 'Nota',
                 style: {
                     color: Highcharts.getOptions().colors[0]
                 }
@@ -81,7 +81,7 @@ $(function () {
             backgroundColor: '#FFFFFF'
         },
         series: [{
-            name: 'ENADE',
+            name: 'Nota',
             type: 'column',
             yAxis: 1,
             color:'#ffa262',
@@ -97,7 +97,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nc_br.nc__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nc %} {{media_nc_br.nc__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -111,7 +111,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nc_rs.nc__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nc %} {{media_nc_rs.nc__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -136,7 +136,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_nidd %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -202,7 +202,7 @@ $(function () {
             backgroundColor: '#FFFFFF'
         },
         series: [{
-            name: 'IDD',
+            name: 'Nota',
             type: 'column',
             yAxis: 1,
             color:'#ffa262',
@@ -218,7 +218,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nidd_br.nidd__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nidd %} {{media_nidd_br.nidd__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -232,7 +232,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nidd_rs.nidd__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nidd %} {{media_nidd_rs.nidd__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -257,7 +257,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_nm %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -339,7 +339,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nm_br.nm__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nm %} {{media_nm_br.nm__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -353,7 +353,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nm_rs.nm__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nm %} {{media_nm_rs.nm__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -378,7 +378,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_nd %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -460,7 +460,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nd_br.nd__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nd %} {{media_nd_br.nd__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -474,7 +474,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nd_rs.nd__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nd %} {{media_nd_rs.nd__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -499,7 +499,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_no %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -581,7 +581,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_no_br.no__avg}}, {% endfor %}],
+            data: [{% for i in sigla_no %} {{media_no_br.no__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -595,7 +595,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_no_br.no__avg}}, {% endfor %}],
+            data: [{% for i in sigla_no %} {{media_no_br.no__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -620,7 +620,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_nf %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -702,7 +702,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nf_br.nf__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nf %} {{media_nf_br.nf__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -716,7 +716,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nf_rs.nf__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nf %} {{media_nf_rs.nf__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -741,7 +741,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_nr %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -823,7 +823,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nr_br.nr__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nr %} {{media_nr_br.nr__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -837,7 +837,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_nr_rs.nr__avg}}, {% endfor %}],
+            data: [{% for i in sigla_nr %} {{media_nr_rs.nr__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
@@ -862,7 +862,7 @@ $(function () {
             text: 'UFSM, RS, Brasil - {{ano}}'
         },
         xAxis: [{
-            categories: [{% for i in sigla %} '{{i}}', {% endfor %}],
+            categories: [{% for i in sigla_na %} '{{i}}', {% endfor %}],
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -944,7 +944,7 @@ $(function () {
             yAxis: 2,
             color: '#3e8513',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_na_br.na__avg}}, {% endfor %}],
+            data: [{% for i in sigla_na %} {{media_na_br.na__avg}}, {% endfor %}],
             marker: {
                 enabled: true
             },
@@ -958,7 +958,7 @@ $(function () {
             type: 'spline',
             color: '#d60707',
             // dados reais adicionados manualmente
-            data: [{% for i in sigla %} {{media_na_rs.na__avg}}, {% endfor %}],
+            data: [{% for i in sigla_na %} {{media_na_rs.na__avg}}, {% endfor %}],
             tooltip: {
                 valueSuffix: ' '
             }
