@@ -3,971 +3,545 @@
 {% load static %}
 
 <script type="text/javascript">
-$(function () {
-    $('#divEnade').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota ENADE'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_nc %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divEnade').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Enade {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'Nota',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in nc %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Enade'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nc %}
+                {
+                y: {{ d.nc }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nc %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in nc %} {{i.nc}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nc %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média ENADE Brasil',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nc %} {{media_nc_br.nc__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média ENADE RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nc %} {{media_nc_rs.nc__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
 <div id="divEnade" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divIdd').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota IDD'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_nidd %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divIdd').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota IDD {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'IDD',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in nidd %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota IDD'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nidd %}
+                {
+                y: {{ d.nidd }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nidd %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in nidd %} {{i.nidd}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nidd %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média IDD Brasil',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nidd %} {{media_nidd_br.nidd__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média IDD RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nidd %} {{media_nidd_rs.nidd__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
+<br/><br/>
 <div id="divIdd" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divMestre').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota Mestres'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_nm %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divMestre').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Mestres {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'Nota Mestres',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in nm %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Mestres'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nm %}
+                {
+                y: {{ d.nm }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nm %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in nm %} {{i.nm}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nm %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média NM Brasil',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nm %} {{media_nm_br.nm__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média NM RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nm %} {{media_nm_rs.nm__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
+<br/><br/>
 <div id="divMestre" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divDoutores').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota Doutores'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_nd %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divDoutores').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Doutores {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'ND',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in nd %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Doutores'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nd %}
+                {
+                y: {{ d.nd }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nd %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in nd %} {{i.nd}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nd %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média ND Nacional',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nd %} {{media_nd_br.nd__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média ND RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nd %} {{media_nd_rs.nd__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
+<br/><br/>
 <div id="divDoutores" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divOrgPed').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota Organização Didática Pedagógica'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_no %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divOrgPed').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Organização Didático-Pedagógica {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'Nota',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in no %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Mestres'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in no %}
+                {
+                y: {{ d.no }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in no %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in no %} {{i.no}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in no %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média Nacional',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_no %} {{media_no_br.no__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média no RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_no %} {{media_no_br.no__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
+<br/><br/>
 <div id="divOrgPed" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divInfra').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota Infra-Estrutura'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_nf %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divInfra').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Infraestrutura {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'NF ',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in nf %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Infraestrutura'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nf %}
+                {
+                y: {{ d.nf }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nf %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in nf %} {{i.nf}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nf %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média Nacional',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nf %} {{media_nf_br.nf__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nf %} {{media_nf_rs.nf__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
+<br/><br/>
 <div id="divInfra" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divRegTrab').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota Regime de Trabalho'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_nr %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divRegTrab').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Regime de Trabalho {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'Nota',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in nr %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Mestres'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nr %}
+                {
+                y: {{ d.nr }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nr %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in nr %} {{i.nr}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nr %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média Nacional',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nr %} {{media_nr_br.nr__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_nr %} {{media_nr_rs.nr__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
+<br/><br/>
 <div id="divRegTrab" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-
-<br/><br/><br/>
-
 <script type="text/javascript">
-$(function () {
-    $('#divAmpliacao').highcharts({
-        chart: {
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Nota Ampliação da Formação'
-        },
-        subtitle: {
-            text: 'UFSM, RS, Brasil - {{ano}}'
-        },
-        xAxis: [{
-            categories: [{% for i in sigla_na %} '{{i}}', {% endfor %}],
-            crosshair: true
-        }],
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
-                enabled: false
+    $(function () {
+        $('#divAmpl').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
             title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
+                text: 'Nota Ampliação da Formação {{ ano }}'
             },
-            opposite: true
 
-        }, { // Secondary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: 'Nota',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            xAxis: {
+                categories: [{% for i in na %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Ampliação'
                 }
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in na %}
+                {
+                y: {{ d.na }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
                 },
-            }
-
-        }, { // Tertiary yAxis
-            gridLineWidth: 0,
-            title: {
-                text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
-                enabled: false
+                {% endfor %}],
             },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in na %}{{ media_nc_br }},{% endfor %}],
             },
-            opposite: true,
-            min: 0,
-            max: 5,
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 80,
-            verticalAlign: 'top',
-            y: 55,
-            floating: true,
-            backgroundColor: '#FFFFFF'
-        },
-        series: [{
-            name: 'Nota',
-            type: 'column',
-            yAxis: 1,
-            color:'#ffa262',
-            // dados reais adicionados manualmente
-            data: [{% for i in na %} {{i.na}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ''
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in na %}{{ media_nc_rs }},{% endfor %}],
             },
-
-        }, {
-            name: 'Média Nacional',
-            type: 'spline',
-            yAxis: 2,
-            color: '#3e8513',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_na %} {{media_na_br.na__avg}}, {% endfor %}],
-            marker: {
-                enabled: true
-            },
-            dashStyle: 'shortdot',
-            tooltip: {
-                valueSuffix: ''
-            }
-
-        }, {
-            name: 'Média RS',
-            type: 'spline',
-            color: '#d60707',
-            // dados reais adicionados manualmente
-            data: [{% for i in sigla_na %} {{media_na_rs.na__avg}}, {% endfor %}],
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
+            ]
+        });
     });
-});
 </script>
-<div id="divAmpliacao" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-
-<br/><br/><br/>
-
+<br/><br/>
+<div id="divAmpl" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+<br/><br/>
 {% endblock %}

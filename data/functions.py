@@ -10,7 +10,6 @@ cpc = CPC.objects.all().order_by("ano")
 
 def geralufsm():
     d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
-    print d1
     return {'d1':d1}
 
 def figc():
@@ -44,7 +43,6 @@ def fcentros():
 
     d1 = tsg.filter(centro = "CESNORS FW").order_by("ano").values("centro","ano","tsgcentro").distinct()
     #d1 = d1.latest('ano')
-    print d1
     centros = []
     for c in cpc:
         centros.append(c.id_centro)
@@ -169,9 +167,6 @@ def fcursos():
     x.append(anocpc)
     x.append(cpc_ct['cpc_f2013__avg'])
     d2.append(x)
-    print d2
-
-
 
     cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
     cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
@@ -193,157 +188,143 @@ def fcursos():
             'ct':ct}
 
 def favaliacao(cod_curso):
-    a = [
-        'UNICAMP',
-        'UFRGS',
-        'UNILA',
-        'UFSM',
-        'UNIFESP',
-        'UFSC',
-        'UFRJ',
-        'UFV',
-        'UFABC',
-        'UFLA',
-        'UNB',
-        'UFSCAR',
-        'UNESP',
-        'UFCSPA',
-        'UENF',
-        'UFMG',
-        'UFJF',
-        'UFPE',
-        'PUC-RJ',
-        'UFPR'
-    ]
+    ano = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).latest('ano')
+    ano = ano.ano
+    ufsm = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = 'UFSM')
 
-    ies = [
-        'UNIVERSIDADE ESTADUAL DE CAMPINAS',
-        'UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL',
-        'UNIVERSIDADE FEDERAL DA INTEGRAÇÃO LATINO-AMERICANA',
-        'UNIVERSIDADE FEDERAL DE SANTA MARIA',
-        'UNIVERSIDADE FEDERAL DE SÃO PAULO',
-        'UNIVERSIDADE FEDERAL DE SANTA CATARINA',
-        'UNIVERSIDADE FEDERAL DO RIO DE JANEIRO',
-        'UNIVERSIDADE FEDERAL DE VIÇOSA',
-        'UNIVERSIDADE FEDERAL DO ABC',
-        'UNIVERSIDADE FEDERAL DE LAVRAS',
-        'UNIVERSIDADE DE BRASÍLIA',
-        'UNIVERSIDADE FEDERAL DE SÃO CARLOS',
-        'UNIVERSIDADE ESTADUAL PAULISTA',
-        'UNIVERSIDADE FEDERAL DE CIÊNCIAS DA SAÚDE DE PORTO ALEGRE',
-        'UNIVERSIDADE ESTADUAL DO NORTE FLUMINENSE DARCY RIBEIRO',
-        'UNIVERSIDADE FEDERAL DE MINAS GERAIS',
-        'UNIVERSIDADE FEDERAL DE JUIZ DE FORA',
-        'UNIVERSIDADE FEDERAL DE PELOTAS',
-        'PONTIFÍCIA UNIVERSIDADE CATÓLICA DO RIO DE JANEIRO',
-        'UNIVERSIDADE FEDERAL DO PARANÁ'
-    ]
-
-    sigla_nc = []
-    sigla_nm = []
-    sigla_nd = []
-    sigla_nr = []
-    sigla_no = []
-    sigla_nf = []
-    sigla_na = []
-    sigla_nidd = []
-    nidd = []
+    # NC
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nc')
+    i=0
     nc = []
-    nm = []
-    nd = []
-    nr = []
-    no = []
-    nf = []
-    na =[]
-
-    tmp = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).values('ano').order_by('ano').distinct()
-    ano = tmp.latest('ano').values()[0]
-    k = 0
-    for i in ies:
-        #query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nidd', 'nm', 'nd', 'nc', 'no', 'nf', 'nr', 'na')
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nc')
-        if query.exists():
-            nc.append(query.values('nc').first())
-            sigla_nc.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nm')
-        if query.exists():
-            nm.append(query.values('nm').first())
-            sigla_nm.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nd')
-        if query.exists():
-            nd.append(query.values('nd').first())
-            sigla_nd.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nr')
-        if query.exists():
-            nr.append(query.values('nr').first())
-            sigla_nr.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('no')
-        if query.exists():
-            no.append(query.values('no').first())
-            sigla_no.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nf')
-        if query.exists():
-            nf.append(query.values('nf').first())
-            sigla_nf.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('na')
-        if query.exists():
-            na.append(query.values('na').first())
-            sigla_na.append(a[k])
-
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nidd')
-        if query.exists():
-            nidd.append(query.values('nidd').first())
-            sigla_nidd.append(a[k])
-            
-        k = k + 1
-
+    for g in geral:
+        i+=1
+        nc.append(g)
+        if i == 20: break
+    if ufsm[0] not in nc:
+        nc.pop()
+        nc.append(ufsm[0])
     media_nc_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nc'))
+    media_nc_br = media_nc_br['nc__avg']
     media_nc_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nc'))
+    media_nc_rs = media_nc_rs['nc__avg']
 
-    media_nm_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nm'))
-    media_nm_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nm'))
-
-    media_nd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nd'))
-    media_nd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nd'))
-
-    media_nr_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nr'))
-    media_nr_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nr'))
-
-    media_no_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('no'))
-    media_no_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('no'))
-
-    media_nf_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nf'))
-    media_nf_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nf'))
-
-    media_na_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('na'))
-    media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
-
+    # NIDD
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nidd')
+    i=0
+    nidd = []
+    for g in geral:
+        i+=1
+        nidd.append(g)
+        if i == 20: break
+    if ufsm[0] not in nidd:
+        nidd.pop()
+        nidd.append(ufsm[0])
     media_nidd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nidd'))
+    media_nidd_br = media_nidd_br['nidd__avg']
     media_nidd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nidd'))
+    media_nidd_rs = media_nidd_rs['nidd__avg']
 
-    nc, sigla_nc = BSort(nc, sigla_nc)
-    nm, sigla_nm = BSort(nm, sigla_nm)
-    nd, sigla_nd = BSort(nd, sigla_nd)
-    nr, sigla_nr = BSort(nr, sigla_nr)
-    no, sigla_no = BSort(no, sigla_no)
-    nf, sigla_nf = BSort(nf, sigla_nf)
-    na, sigla_na = BSort(na, sigla_na)
-    nidd, sigla_nidd = BSort(nidd, sigla_nidd)
+    # NM
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nm')
+    i=0
+    nm = []
+    for g in geral:
+        i+=1
+        nm.append(g)
+        if i == 20: break
+    if ufsm[0] not in nm:
+        nm.pop()
+        nm.append(ufsm[0])
+    media_nm_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nm'))
+    media_nm_br = media_nm_br['nm__avg']
+    media_nm_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nm'))
+    media_nm_rs = media_nm_rs['nm__avg']
+
+    # ND
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nd')
+    i=0
+    nd = []
+    for g in geral:
+        i+=1
+        nd.append(g)
+        if i == 20: break
+    if ufsm[0] not in nd:
+        nd.pop()
+        nd.append(ufsm[0])
+    media_nd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nd'))
+    media_nd_br = media_nd_br['nd__avg']
+    media_nd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nd'))
+    media_nd_rs = media_nd_rs['nd__avg']
+
+    # NR
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nr')
+    i=0
+    nr = []
+    for g in geral:
+        i+=1
+        nr.append(g)
+        if i == 20: break
+    if ufsm[0] not in nr:
+        nr.pop()
+        nr.append(ufsm[0])
+    media_nr_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nr'))
+    media_nr_br = media_nr_br['nr__avg']
+    media_nr_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nr'))
+    media_nr_rs = media_nr_rs['nr__avg']
+
+    # NO
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-no')
+    i=0
+    no = []
+    for g in geral:
+        i+=1
+        no.append(g)
+        if i == 20: break
+    if ufsm[0] not in no:
+        no.pop()
+        no.append(ufsm[0])
+    media_no_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('no'))
+    media_no_br = media_no_br['no__avg']
+    media_no_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('no'))
+    media_no_rs = media_no_rs['no__avg']
+
+    # NF
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nf')
+    i=0
+    nf = []
+    for g in geral:
+        i+=1
+        nf.append(g)
+        if i == 20: break
+    if ufsm[0] not in nf:
+        nf.pop()
+        nf.append(ufsm[0])
+    media_nf_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nf'))
+    media_nf_br = media_nf_br['nf__avg']
+    media_nf_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nf'))
+    media_nf_rs = media_nf_rs['nf__avg']
+
+    # NA
+    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-na')
+    i=0
+    na = []
+    for g in geral:
+        i+=1
+        na.append(g)
+        if i == 20: break
+    if ufsm[0] not in na:
+        na.pop()
+        na.append(ufsm[0])
+    media_na_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('na'))
+    media_na_br = media_na_br['na__avg']
+    media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
+    media_na_rs = media_na_rs['na__avg']
 
     return {'ano':ano, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
             'media_nc_br': media_nc_br, 'media_nc_rs': media_nc_rs, 'media_nm_br': media_nm_br, 'media_nm_rs': media_nm_rs,
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
             'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs,
-            'sigla_nc': sigla_nc, 'sigla_nm': sigla_nm, 'sigla_nd': sigla_nd, 'sigla_nr': sigla_nr, 'sigla_no': sigla_no,
-            'sigla_nf': sigla_nf, 'sigla_na': sigla_na, 'sigla_nidd': sigla_nidd
-
     }
 
 def BSort(values, ies):
