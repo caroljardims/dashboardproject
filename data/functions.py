@@ -7,9 +7,6 @@ from django.db.models import Avg
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
 
-	###############
-	# funções IGC #
-	###############
 
 def geralufsm():
     d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
@@ -242,7 +239,14 @@ def favaliacao(cod_curso):
         'UNIVERSIDADE FEDERAL DO PARANÁ'
     ]
 
-    sigla = []
+    sigla_nc = []
+    sigla_nm = []
+    sigla_nd = []
+    sigla_nr = []
+    sigla_no = []
+    sigla_nf = []
+    sigla_na = []
+    sigla_nidd = []
     nidd = []
     nc = []
     nm = []
@@ -256,16 +260,47 @@ def favaliacao(cod_curso):
     ano = tmp.latest('ano').values()[0]
     k = 0
     for i in ies:
-        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nidd', 'nm', 'nd', 'nc', 'no', 'nf', 'nr', 'na')
-        nc.append(query.values('nc').first())
-        nm.append(query.values('nm').first())
-        nd.append(query.values('nd').first())
-        nr.append(query.values('nr').first())
-        no.append(query.values('no').first())
-        nf.append(query.values('nf').first())
-        na.append(query.values('na').first())
-        nidd.append(query.values('nidd').first())
-        sigla.append(a[k])
+        #query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nidd', 'nm', 'nd', 'nc', 'no', 'nf', 'nr', 'na')
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nc')
+        if query.exists():
+            nc.append(query.values('nc').first())
+            sigla_nc.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nm')
+        if query.exists():
+            nm.append(query.values('nm').first())
+            sigla_nm.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nd')
+        if query.exists():
+            nd.append(query.values('nd').first())
+            sigla_nd.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nr')
+        if query.exists():
+            nr.append(query.values('nr').first())
+            sigla_nr.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('no')
+        if query.exists():
+            no.append(query.values('no').first())
+            sigla_no.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nf')
+        if query.exists():
+            nf.append(query.values('nf').first())
+            sigla_nf.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('na')
+        if query.exists():
+            na.append(query.values('na').first())
+            sigla_na.append(a[k])
+
+        query = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, nome_ies = i).values('nidd')
+        if query.exists():
+            nidd.append(query.values('nidd').first())
+            sigla_nidd.append(a[k])
+            
         k = k + 1
 
     media_nc_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nc'))
@@ -292,9 +327,36 @@ def favaliacao(cod_curso):
     media_nidd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nidd'))
     media_nidd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nidd'))
 
-    return {'ano':ano, 'sigla': sigla, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
+    nc, sigla_nc = BSort(nc, sigla_nc)
+    nm, sigla_nm = BSort(nm, sigla_nm)
+    nd, sigla_nd = BSort(nd, sigla_nd)
+    nr, sigla_nr = BSort(nr, sigla_nr)
+    no, sigla_no = BSort(no, sigla_no)
+    nf, sigla_nf = BSort(nf, sigla_nf)
+    na, sigla_na = BSort(na, sigla_na)
+    nidd, sigla_nidd = BSort(nidd, sigla_nidd)
+
+    return {'ano':ano, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
             'media_nc_br': media_nc_br, 'media_nc_rs': media_nc_rs, 'media_nm_br': media_nm_br, 'media_nm_rs': media_nm_rs,
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
-            'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs
+            'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs,
+            'sigla_nc': sigla_nc, 'sigla_nm': sigla_nm, 'sigla_nd': sigla_nd, 'sigla_nr': sigla_nr, 'sigla_no': sigla_no,
+            'sigla_nf': sigla_nf, 'sigla_na': sigla_na, 'sigla_nidd': sigla_nidd
+
     }
+
+def BSort(values, ies):
+    for j in range(len(values) - 1):
+        for i in range(len(values) - 1):
+            if values[i] < values[i+1]:
+                aux = values[i]
+                sigla = ies[i]
+                values[i] = values[i+1]
+                ies[i] = ies[i+1]
+                values[i+1] = aux
+                ies[i+1] = sigla
+
+    return values, ies
+
+

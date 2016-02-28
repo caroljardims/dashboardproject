@@ -5,84 +5,69 @@
 <div class="cursosArea">
     <div id='dropdownselect'>
         <ul>
-            <li class='active has-sub'><a href='#'><span> CAL </span></a>
+            <li class='active has-sub'><a href='/centro/{{ cal.0.id_centro }}'><span> CAL </span></a>
                 <ul>
                 {% for c in cal %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }} </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CCNE </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ccne.0.id_centro }}'><span> CCNE </span></a>
                 <ul>
                 {% for c in ccne %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CCR </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ccr.0.id_centro }}'><span> CCR </span></a>
                 <ul>
                 {% for c in ccr %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CCS </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ccs.0.id_centro }}'><span> CCS </span></a>
                 <ul>
                 {% for c in ccs %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CCSH </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ccsh.0.id_centro }}'><span> CCSH </span></a>
                 <ul>
                 {% for c in ccsh %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CE </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ce.0.id_centro }}'><span> CE </span></a>
                 <ul>
                 {% for c in ce %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CEFD </span></a>
+            <li class='active has-sub'><a href='/centro/{{ cefd.0.id_centro }}'><span> CEFD </span></a>
                 <ul>
                 {% for c in cefd %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
-            </li>
-            <li class='active has-sub'><a href='#'><span> CESNORS FW </span></a>
-                <ul>
-                {% for c in cesnorsfw %}
-                     <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
-                {% endfor %}
-                </ul>
-            </li>
-            <li class='active has-sub'><a href='#'><span> CESNORS PM</span></a>
-                <ul>
-                {% for c in cesnorspm %}
-                     <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
-                {% endfor %}
-                </ul>
-            </li>
-            <li class='active has-sub'><a href='#'><span> CT </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ct.0.id_centro }}'><span> CT </span></a>
                 <ul>
                 {% for c in ct %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> CTISM </span></a>
+            <li class='active has-sub'><a href='/centro/{{ ctism.0.id_centro }}'><span> CTISM </span></a>
                 <ul>
                 {% for c in ctism %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
                 {% endfor %}
                 </ul>
             </li>
-            <li class='active has-sub'><a href='#'><span> UDSSM </span></a>
+            <li class='active has-sub'><a href='/centro/{{ udssm.0.id_centro }}'><span> UDSSM </span></a>
                 <ul>
                 {% for c in udssm %}
                      <li class='has-sub'><a href='/avaliacao/{{ c.codigo_curso }}'><span> {{ c.nome_curso }}  </span></a></li>
@@ -92,6 +77,5 @@
         </ul>
     </div>
 </div>
-
 
 {% endblock %}
