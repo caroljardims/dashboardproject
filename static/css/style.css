@@ -69,6 +69,19 @@ footer{
     border-radius: 5px;
 }
 
+.enadeArea{
+    padding: 60px;
+    background-color: #fff;
+    display: table;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    -webkit-box-shadow:1px 1px 1px 1px #e6e9ea;
+    box-shadow: 1px 1px 1px 1px #e6e9ea;
+    border-radius: 5px;
+}
+
 .btn {
   background: #3498db;
   -webkit-border-radius: 10;
