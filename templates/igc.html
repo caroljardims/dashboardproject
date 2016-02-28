@@ -106,24 +106,19 @@ $(function () {
             crosshair: false
         }],
         yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            },
+            min: 0,
+            max: 300,
             title: {
                 text: 'Posição',
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
             }
-        }, { // Secondary yAxis
+        }, {
+            min: 0,
+            max: 300,
             title: {
                 text: 'Total de instituições',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
             },
             labels: {
                 format: '{value}',
@@ -182,8 +177,8 @@ $(function () {
             type: 'scatter',
             data: [{% for i in posicao %} {{ i }}, {% endfor %}],
             tooltip: {
-                enabled: false,
-        },
+                valueSuffix: 'º'
+            },
         }]
     });
 });

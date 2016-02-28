@@ -124,38 +124,38 @@ def fcursos():
 #    cpc_cesnorsfw = cpc_centro.filter(centro = "CESNORS FW").aggregate(Avg('cpc_f2013'))
     cpc_cefd = cpc_centro.filter(centro = "CEFD").aggregate(Avg('cpc_f2013'))
     x.append('CEFD')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_cefd['cpc_f2013__avg'])
     d2.append(x)
     x = []
     cpc_ccsh = cpc_centro.filter(centro = "CCSH").aggregate(Avg('cpc_f2013'))
     x.append('CCSH')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_ccsh['cpc_f2013__avg'])
     d2.append(x)
     x = []
 #   cpc_ccs = cpc_centro.filter(centro = "CCS").aggregate(Avg('cpc_f2013'))
     cpc_ccr = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
     x.append('CCR')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_ccr['cpc_f2013__avg'])
     d2.append(x)
     x = []
     cpc_ccne = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
     x.append('CCNE')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_ccne['cpc_f2013__avg'])
     d2.append(x)
     x = []
     cpc_ctism = cpc_centro.filter(centro = "CTISM").aggregate(Avg('cpc_f2013'))
     x.append('CTISM')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_ctism['cpc_f2013__avg'])
     d2.append(x)
     x = []
     cpc_ce = cpc_centro.filter(centro = "CE").aggregate(Avg('cpc_f2013'))
     x.append('CE')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_ce['cpc_f2013__avg'])
     d2.append(x)
     x = []
@@ -163,13 +163,13 @@ def fcursos():
 #    cpc_udssm = cpc_centro.filter(centro = "UDSSM").aggregate(Avg('cpc_f2013'))
     cpc_cal = cpc_centro.filter(centro = "CAL").aggregate(Avg('cpc_f2013'))
     x.append('CAL')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_cal['cpc_f2013__avg'])
     d2.append(x)
     x = []
     cpc_ct = cpc_centro.filter(centro = "CT").aggregate(Avg('cpc_f2013'))
     x.append('CT')
-    x.append('anocpc')
+    x.append(anocpc)
     x.append(cpc_ct['cpc_f2013__avg'])
     d2.append(x)
     print d2
@@ -270,7 +270,7 @@ def favaliacao(cod_curso):
 
     media_nc_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nc'))
     media_nc_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nc'))
-    
+
     media_nm_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nm'))
     media_nm_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nm'))
 
