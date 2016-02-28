@@ -188,8 +188,9 @@ def fcursos():
             'ct':ct}
 
 def favaliacao(cod_curso):
-    ano = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).latest('ano')
-    ano = ano.ano
+    atual = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).latest('ano')
+    ano = atual.ano
+    area = atual.area
     ufsm = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = 'UFSM')
 
     # NC
@@ -320,7 +321,7 @@ def favaliacao(cod_curso):
     media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
     media_na_rs = media_na_rs['na__avg']
 
-    return {'ano':ano, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
+    return {'area':area, 'ano':ano, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
             'media_nc_br': media_nc_br, 'media_nc_rs': media_nc_rs, 'media_nm_br': media_nm_br, 'media_nm_rs': media_nm_rs,
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
