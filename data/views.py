@@ -19,7 +19,6 @@ def index(request):
     context = geralufsm()
     return render_to_response('index.html', context)
 
-
 def igc(request):
     context = figc()
     return render_to_response('igc.html', context)
@@ -43,3 +42,11 @@ def list(request):
 def avaliacaoCurso(request, cod_curso):
 	context = favaliacao(cod_curso)
 	return render(request, "avaliacao.html", context)
+
+def listaCursos(request):
+    context = fcursos()
+    return render(request, "origin.html", context)
+
+def origemAlunos(request, cod_curso):
+    context = flocalizacao(cod_curso)
+    return render(request, "source.html", context)

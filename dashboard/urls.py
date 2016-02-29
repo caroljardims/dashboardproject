@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^igc', 'data.views.igc', name='IGC UFSM'),
     url(r'^enade', 'data.views.list', name='enade'),
 	url(r'^avaliacao/([0-9]*)/$', 'data.views.avaliacaoCurso', name='avaliacao'),
+    url(r'^origin', 'data.views.listaCursos', name='origin'),
+    url(r'^source/([0-9]*)/$', 'data.views.origemAlunos', name='origem_alunos'),
 ]
