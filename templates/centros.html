@@ -115,9 +115,8 @@
             series: [
             {% for d in d1 %}
             {
-                name: '{{ d.0.centro }}',
-                data: [{% for x in d %} [{{ x.ano }}, {{ x.tsgcentro }}],{% endfor %}],
-
+                name: '{{ d.centro }}',
+                data: [[{{ d.ano }}, {{ d.tsgcentro }}],],
             },
             {% endfor %}
             ]
