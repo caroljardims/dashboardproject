@@ -35,32 +35,6 @@ def figc():
 
     return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
 
-<<<<<<< HEAD
-	###################
-	# funções Centros #
-	###################
-def fcentros():
-    d2 = []
-
-    d1 = tsg.filter(centro = "CESNORS FW").order_by("ano").values("centro","ano","tsgcentro").distinct()
-    #d1 = d1.latest('ano')
-    #print d1 
-    centros = []
-    for c in cpc:
-        centros.append(c.id_centro)
-    centros = list(set(centros))
-
-    for c in centros:
-        x = []
-        for t in cpc:
-            if c == t.id_centro:
-                x.append(t)
-        d2.append(x)
-
-    return {'d1':d1, 'd2':d2}
-
-=======
->>>>>>> origin/master
 	##################
 	# funções Cursos #
 	##################
@@ -354,7 +328,7 @@ def flocalizacao(cod_curso):
     longitude = []
     localizacao = []
     query = MATRICULADOS_SISU.objects.all().filter(codigo_curso = cod_curso).values('municipio')
-    
+
     for i in query:
         aux = MUNICIPIOS.objects.all().filter(MUNICIPIO = i.values()[0]).values('LATITUDE', 'LONGITUDE')
         if aux.exists():
