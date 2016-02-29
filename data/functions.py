@@ -35,6 +35,7 @@ def figc():
 
     return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
 
+<<<<<<< HEAD
 	###################
 	# funções Centros #
 	###################
@@ -58,6 +59,8 @@ def fcentros():
 
     return {'d1':d1, 'd2':d2}
 
+=======
+>>>>>>> origin/master
 	##################
 	# funções Cursos #
 	##################
@@ -102,14 +105,7 @@ def fcursos():
     for t in tsg:
        centros.append(t.centro)
     centros = list(set(centros))
-
-    for c in centros:
-        x = []
-        for t in tsg.filter(ano=anotsg):
-            if c == t.centro:
-                x.append(t)
-        d1.append(x)
-
+    d1 = tsg.filter(ano=anotsg).order_by('tsgcentro').values('tsgcentro','ano','centro').distinct()
     centros = []
     for c in cpc:
         centros.append(c.id_centro)
