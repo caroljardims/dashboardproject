@@ -9,7 +9,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Evolução CPC {{ centro.0.centro }}'
+                text: 'Evolução CPC {{ centro.0.0 }}'
             },
             yAxis: {
                 min: 0,
@@ -33,8 +33,9 @@
             },
             series: [
             {
-                name: 'CPC',
-                data: [{% for c in centro %} [{{c.ano}},{{ c.cpc_f2013 }}],{% endfor %}],
+                name: 'CPC {{ centro.0.0 }}',
+                color: '#0066b2',
+                data: [{% for c in centro %} [{{c.1}},{{ c.2 }}],{% endfor %}],
             },]
         });
     });
