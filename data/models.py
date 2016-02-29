@@ -177,6 +177,7 @@ class MUNICIPIOS(models.Model):
 class MATRICULADOS_SISU(models.Model):
     campus = models.CharField(max_length=50)
     area = models.CharField(max_length=50)
+    codigo_curso = models.IntegerField(default=0) # ATUALIZAR MODELO
     uf = models.CharField(max_length=2)
     municipio = models.CharField(max_length=50)
     def __unicode__(self):

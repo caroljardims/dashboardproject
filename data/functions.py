@@ -43,6 +43,7 @@ def fcentros():
 
     d1 = tsg.filter(centro = "CESNORS FW").order_by("ano").values("centro","ano","tsgcentro").distinct()
     #d1 = d1.latest('ano')
+    #print d1 
     centros = []
     for c in cpc:
         centros.append(c.id_centro)
@@ -167,6 +168,7 @@ def fcursos():
     x.append(anocpc)
     x.append(cpc_ct['cpc_f2013__avg'])
     d2.append(x)
+    #print d2
 
     cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
     cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
@@ -341,4 +343,17 @@ def BSort(values, ies):
 
     return values, ies
 
+def flocalizacao(cod_curso):
+    latitude = []
+    longitude = []
+    localizacao = []
+    query = MATRICULADOS_SISU.objects.all().filter(codigo_curso = cod_curso).values('municipio')
+    
+    for i in query:
+        aux = MUNICIPIOS.objects.all().filter(MUNICIPIO = i.values()[0]).values('LATITUDE', 'LONGITUDE')
+        if aux.exists():
+            localizacao.append(aux.first())
+        #latitude.append(aux.values('LATITUDE').first())
+        #longitude.append(aux.values('LONGITUDE').first())
 
+    return {'localizacao': localizacao}
