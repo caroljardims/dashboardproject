@@ -20,7 +20,7 @@ def index(request):
     return render_to_response('index.html', context)
 
 def igc(request):
-    context = figc()
+    context = geralufsm()
     return render_to_response('igc.html', context)
 
 def centros(request):

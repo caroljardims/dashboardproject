@@ -40,17 +40,6 @@
         });
     });
 </script>
-<div class="cursosArea">
-    <div id='dropdownselect'>
-        <ul>
-            {% for c in cursos %}
-            <li class='active has-sub'><a href='/curso/{{ c.codigo_curso }}'><span> {{ c.nome_curso }} </span></a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-<br/><br/><br/>
     <div id="container" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div><br/><br/>
 
 {% endblock %}

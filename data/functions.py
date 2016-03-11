@@ -7,12 +7,24 @@ from django.db.models import Avg
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
 
+cursosmenu = cpc.order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
+centrosmenu = cpc.order_by("centro").values("centro","id_centro").distinct()
+
+cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ccne = cpc.filter(centro = "CCNE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
 
 def geralufsm():
     d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
-    return {'d1':d1}
-
-def figc():
     igc_ufsm = IGC.objects.all().filter(nomeies = "UNIVERSIDADE FEDERAL DE SANTA MARIA").order_by("ano")
 
     context = {'ufsm':igc_ufsm}
@@ -33,7 +45,7 @@ def figc():
         z = z.filter(igc_continuo__gte = value_igc).count() + 1
         posicao.append(z)
 
-    return {'ufsm':igc_ufsm, 'ano':ano, 'total_ies':total, 'posicao':posicao}
+    return {'d1':d1,'ufsm':igc_ufsm,'ano':ano,'total_ies':total,'posicao':posicao,'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
 
 	##################
 	# funções Cursos #
@@ -67,17 +79,15 @@ def fcentro(cod_centro):
             x = centro.filter(ano = a['ano']).aggregate(Avg('cpc_f2013'))
         d1.append([centro[0].centro, a['ano'], x['cpc_f2013__avg']])
     centro = d1
-    cursos = cpc.filter(id_centro = cod_centro).order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
 
-    return {'centro':centro, 'cursos':cursos}
+    return {'centro':centro, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
 
 def fcurso(cod_curso):
     curso = cpc.filter(codigo_curso = cod_curso)
     atsg = tsg.filter(codcurso = cod_curso)
     for a in atsg: print a.nomecurso
     latest = curso.latest('ano')
-    return {'curso':curso, 'ultimo':latest}
-
+    return {'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
 
 def fcursos():
     centros = []
@@ -93,6 +103,7 @@ def fcursos():
     centros = []
     for c in cpc:
         centros.append(c.id_centro)
+    
     centros = list(set(centros))
 
     cpc_centro = cpc.filter(ano=anocpc).order_by("cpc_f2013")
@@ -150,24 +161,11 @@ def fcursos():
     d2.append(x)
     #print d2
 
-    cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ccne = cpc.filter(centro = "CCNE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-    ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-
     return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros,
             'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd,
             'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism,
             'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal,
-            'ct':ct}
+            'ct':ct, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
 
 def favaliacao(cod_curso):
     atual = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).latest('ano')
@@ -308,20 +306,8 @@ def favaliacao(cod_curso):
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
             'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs,
+            'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu
     }
-
-def BSort(values, ies):
-    for j in range(len(values) - 1):
-        for i in range(len(values) - 1):
-            if values[i] < values[i+1]:
-                aux = values[i]
-                sigla = ies[i]
-                values[i] = values[i+1]
-                ies[i] = ies[i+1]
-                values[i+1] = aux
-                ies[i+1] = sigla
-
-    return values, ies
 
 def flocalizacao(cod_curso):
     latitude = []
