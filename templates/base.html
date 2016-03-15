@@ -16,7 +16,22 @@
         <style type="text/css">
 ${demo.css}
         </style>
-
+        <script>
+          $(function() {
+            $('a[href*="#"]:not([href="#"])').click(function() {
+              if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                  $('html, body').animate({
+                    scrollTop: target.offset().top
+                  }, 1000);
+                  return false;
+                }
+              }
+            });
+          });
+        </script>
     </head>
 
 <body>
@@ -86,11 +101,11 @@ ${demo.css}
                   </div>
               </div>
             </div>
-            <div class="col-md-9 col-md-offset-3 content">
+            <div class="col-md-9 col-md-offset-2 content">
                 <br/><br/><br/>
-                <article>
+                <div id="wrapperinfo" class="container">
                 {% block body %} {% endblock %}
-                </article>
+              </div>
             </div>
         </div>
     </div>

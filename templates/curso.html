@@ -2,21 +2,6 @@
 
 {% block body%}
 {% load static %}
-
-<div id="infoboard">
-<h2>CPC {{ ultimo.nome_curso }} UFSM</h2><br/>
-    <div class="info1">
-        <img class="left" src="{% static "img/icon_avaliacao.png" %}" />
-        <b>Ano da Última Avaliação:</b>   <p>{{ ultimo.ano }}</p>
-        <b>Índice da Última Avaliação:</b> <p>{{ ultimo.cpc_f2013 }}</p>
-    </div>
-    <div class="info2">
-        <img class="left" src="{% static "img/icon_posicao.png" %}" />
-        <b>Posicionamento no Estado:</b> <p> {{ ultimo.posicaorscpc }} </p>
-        <b>Posicionamento no País:</b> <p>{{ ultimo.posicaobrasilcpc }}</p>
-    </div>
-</div>
-<br/><br/><br/>
 <script type="text/javascript">
 $(function () {
     $('#container').highcharts({
@@ -175,6 +160,600 @@ $(function () {
     });
 });
 </script>
-<div id="container" style="min-width: 310px; width: 100%; height: 500px; margin: 0 auto"></div><br/>
+<script type="text/javascript">
+    $(function () {
+        $('#divEnade').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Enade {{ ano }}'
+            },
 
+            xAxis: {
+                categories: [{% for i in nc %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Enade'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nc %}
+                {
+                y: {{ d.nc }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nc %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nc %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#divIdd').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota IDD {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in nidd %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota IDD'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nidd %}
+                {
+                y: {{ d.nidd }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nidd %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nidd %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#divMestre').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Mestres {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in nm %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Mestres'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nm %}
+                {
+                y: {{ d.nm }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nm %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nm %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#divDoutores').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Doutores {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in nd %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Doutores'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nd %}
+                {
+                y: {{ d.nd }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nd %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nd %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#divOrgPed').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Organização Didático-Pedagógica {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in no %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Mestres'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in no %}
+                {
+                y: {{ d.no }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in no %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in no %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#divInfra').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Infraestrutura {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in nf %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Infraestrutura'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nf %}
+                {
+                y: {{ d.nf }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nf %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nf %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#divRegTrab').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Regime de Trabalho {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in nr %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Mestres'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in nr %}
+                {
+                y: {{ d.nr }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in nr %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in nr %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#divAmpl').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Nota Ampliação da Formação {{ ano }}'
+            },
+
+            xAxis: {
+                categories: [{% for i in na %} '{{ i.sigla_ies }}', {% endfor %}],
+            },
+            yAxis: {
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Nota Ampliação'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                type: 'column',
+                name: 'IES',
+                data: [{% for d in na %}
+                {
+                y: {{ d.na }},
+                {% if d.sigla_ies == 'UFSM' %}
+                color:'#ff8100',
+                {% else %}
+                color: '#199cff',
+                {% endif %}
+                },
+                {% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média Brasil',
+                color: '#3e8513',
+                data: [{% for d in na %}{{ media_nc_br }},{% endfor %}],
+            },
+            {
+                type: 'spline',
+                name: 'Média RS',
+                color: '#d60707',
+                data: [{% for d in na %}{{ media_nc_rs }},{% endfor %}],
+            },
+            ]
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="infoboard" class="container fill">
+<h2>CPC {{ ultimo.nome_curso|lower|capfirst }} UFSM - Índices Gerais </h2><br/>
+    <div class="info1">
+        <img class="left" src="{% static "img/icon_avaliacao.png" %}" />
+        <b>Ano da Última Avaliação:</b>   <p>{{ ultimo.ano }}</p>
+        <b>Índice da Última Avaliação:</b> <p>{{ ultimo.cpc_f2013 }}</p>
+    </div>
+    <div class="info2">
+        <img class="left" src="{% static "img/icon_posicao.png" %}" />
+        <b>Posicionamento no Estado:</b> <p> {{ ultimo.posicaorscpc }} </p>
+        <b>Posicionamento no País:</b> <p>{{ ultimo.posicaobrasilcpc }}</p>
+    </div>
+</div>
+<hr/>
+<div id="cpcGeralCurso" class="container fill">
+    <div id="container" style=" padding-top: 150px; min-width: 310px; width: 100%; height: 500px; margin: 0 auto"></div><br/>
+</div>
+<hr/>
+<div id="notasEnade">
+    <div id="divEnade" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+    <br/><br/>
+    <div id="divIdd" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+    <br/><br/>
+    <div id="divMestre" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+    <br/><br/>
+    <div id="divDoutores" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+    <br/><br/>
+    <div id="divOrgPed" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>      
+    <br/><br/>
+    <div id="divInfra" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>      
+    <br/><br/>
+    <div id="divRegTrab" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+    <br/><br/>
+    <div id="divAmpl" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+</div>
+<div id="guide">
+    <ul> 
+        <li><a href="#infoboard">Índices Gerais do Curso</a></li>
+        <li><a href="#cpcGeralCurso">CPC Geral do Curso</a></li>
+        <li><a href="#notasEnade">Notas Enade</a></li>
+        <li><a href="#divIdd">Nota IDD</a></li>
+        <li><a href="#divMestre">Nota Mestres</a></li>
+        <li><a href="#divDoutores">Nota Doutores</a></li>
+        <li><a href="#divOrgPed">Nota Organização Pedagógica</a></li>
+        <li><a href="#divInfra">Nota Infraestrutura</a></li>
+        <li><a href="#divRegTrab">Nota Regime de Trabalho</a></li>
+        <li><a href="#divAmpl">Nota Ampliação da Formação</a></li>
+    </ul>
+</div>
 {% endblock %}

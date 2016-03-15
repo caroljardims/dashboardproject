@@ -87,87 +87,6 @@ def fcurso(cod_curso):
     atsg = tsg.filter(codcurso = cod_curso)
     for a in atsg: print a.nomecurso
     latest = curso.latest('ano')
-    return {'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
-
-def fcursos():
-    centros = []
-    d1 = []
-    d2 = []
-
-    anotsg = tsg.latest('ano').ano
-    anocpc = cpc.latest('ano').ano
-    for t in tsg:
-       centros.append(t.centro)
-    centros = list(set(centros))
-    d1 = tsg.filter(ano=anotsg).order_by('tsgcentro').values('tsgcentro','ano','centro').distinct()
-    centros = []
-    for c in cpc:
-        centros.append(c.id_centro)
-    
-    centros = list(set(centros))
-
-    cpc_centro = cpc.filter(ano=anocpc).order_by("cpc_f2013")
-    x = []
-#    cpc_cesnorsfw = cpc_centro.filter(centro = "CESNORS FW").aggregate(Avg('cpc_f2013'))
-    cpc_cefd = cpc_centro.filter(centro = "CEFD").aggregate(Avg('cpc_f2013'))
-    x.append('CEFD')
-    x.append(anocpc)
-    x.append(cpc_cefd['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ccsh = cpc_centro.filter(centro = "CCSH").aggregate(Avg('cpc_f2013'))
-    x.append('CCSH')
-    x.append(anocpc)
-    x.append(cpc_ccsh['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-#   cpc_ccs = cpc_centro.filter(centro = "CCS").aggregate(Avg('cpc_f2013'))
-    cpc_ccr = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
-    x.append('CCR')
-    x.append(anocpc)
-    x.append(cpc_ccr['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ccne = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
-    x.append('CCNE')
-    x.append(anocpc)
-    x.append(cpc_ccne['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ctism = cpc_centro.filter(centro = "CTISM").aggregate(Avg('cpc_f2013'))
-    x.append('CTISM')
-    x.append(anocpc)
-    x.append(cpc_ctism['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ce = cpc_centro.filter(centro = "CE").aggregate(Avg('cpc_f2013'))
-    x.append('CE')
-    x.append(anocpc)
-    x.append(cpc_ce['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-#    cpc_cesnorspm = cpc_centro.filter(centro = "CESNORS PM").aggregate(Avg('cpc_f2013'))
-#    cpc_udssm = cpc_centro.filter(centro = "UDSSM").aggregate(Avg('cpc_f2013'))
-    cpc_cal = cpc_centro.filter(centro = "CAL").aggregate(Avg('cpc_f2013'))
-    x.append('CAL')
-    x.append(anocpc)
-    x.append(cpc_cal['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ct = cpc_centro.filter(centro = "CT").aggregate(Avg('cpc_f2013'))
-    x.append('CT')
-    x.append(anocpc)
-    x.append(cpc_ct['cpc_f2013__avg'])
-    d2.append(x)
-    #print d2
-
-    return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros,
-            'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd,
-            'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism,
-            'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal,
-            'ct':ct, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
-
-def favaliacao(cod_curso):
     atual = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).latest('ano')
     ano = atual.ano
     area = atual.area
@@ -306,8 +225,89 @@ def favaliacao(cod_curso):
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
             'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs,
-            'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu
+            'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu
     }
+
+def fcursos():
+    centros = []
+    d1 = []
+    d2 = []
+
+    anotsg = tsg.latest('ano').ano
+    anocpc = cpc.latest('ano').ano
+    for t in tsg:
+       centros.append(t.centro)
+    centros = list(set(centros))
+    d1 = tsg.filter(ano=anotsg).order_by('tsgcentro').values('tsgcentro','ano','centro').distinct()
+    centros = []
+    for c in cpc:
+        centros.append(c.id_centro)
+    
+    centros = list(set(centros))
+
+    cpc_centro = cpc.filter(ano=anocpc).order_by("cpc_f2013")
+    x = []
+#    cpc_cesnorsfw = cpc_centro.filter(centro = "CESNORS FW").aggregate(Avg('cpc_f2013'))
+    cpc_cefd = cpc_centro.filter(centro = "CEFD").aggregate(Avg('cpc_f2013'))
+    x.append('CEFD')
+    x.append(anocpc)
+    x.append(cpc_cefd['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+    cpc_ccsh = cpc_centro.filter(centro = "CCSH").aggregate(Avg('cpc_f2013'))
+    x.append('CCSH')
+    x.append(anocpc)
+    x.append(cpc_ccsh['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+#   cpc_ccs = cpc_centro.filter(centro = "CCS").aggregate(Avg('cpc_f2013'))
+    cpc_ccr = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
+    x.append('CCR')
+    x.append(anocpc)
+    x.append(cpc_ccr['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+    cpc_ccne = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
+    x.append('CCNE')
+    x.append(anocpc)
+    x.append(cpc_ccne['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+    cpc_ctism = cpc_centro.filter(centro = "CTISM").aggregate(Avg('cpc_f2013'))
+    x.append('CTISM')
+    x.append(anocpc)
+    x.append(cpc_ctism['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+    cpc_ce = cpc_centro.filter(centro = "CE").aggregate(Avg('cpc_f2013'))
+    x.append('CE')
+    x.append(anocpc)
+    x.append(cpc_ce['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+#    cpc_cesnorspm = cpc_centro.filter(centro = "CESNORS PM").aggregate(Avg('cpc_f2013'))
+#    cpc_udssm = cpc_centro.filter(centro = "UDSSM").aggregate(Avg('cpc_f2013'))
+    cpc_cal = cpc_centro.filter(centro = "CAL").aggregate(Avg('cpc_f2013'))
+    x.append('CAL')
+    x.append(anocpc)
+    x.append(cpc_cal['cpc_f2013__avg'])
+    d2.append(x)
+    x = []
+    cpc_ct = cpc_centro.filter(centro = "CT").aggregate(Avg('cpc_f2013'))
+    x.append('CT')
+    x.append(anocpc)
+    x.append(cpc_ct['cpc_f2013__avg'])
+    d2.append(x)
+    #print d2
+
+    return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros,
+            'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd,
+            'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism,
+            'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal,
+            'ct':ct, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
+
+def favaliacao(cod_curso):
+    return
 
 def flocalizacao(cod_curso):
     latitude = []
