@@ -220,12 +220,22 @@ def fcurso(cod_curso):
     media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
     media_na_rs = media_na_rs['na__avg']
 
+    latitude = []
+    longitude = []
+    localizacao = []
+    query = MATRICULADOS_SISU.objects.all().filter(codigo_curso = cod_curso).values('municipio')
+
+    for i in query:
+        aux = MUNICIPIOS.objects.all().filter(MUNICIPIO = i.values()[0]).values('LATITUDE', 'LONGITUDE')
+        if aux.exists():
+            localizacao.append(aux.first())
+
     return {'area':area, 'ano':ano, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
             'media_nc_br': media_nc_br, 'media_nc_rs': media_nc_rs, 'media_nm_br': media_nm_br, 'media_nm_rs': media_nm_rs,
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
             'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs,
-            'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu
+            'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu, 'localizacao': localizacao
     }
 
 def fcursos():
@@ -305,9 +315,6 @@ def fcursos():
             'ccsh':ccsh, 'ccs': ccs, 'ccr':ccr, 'ctism':ctism,
             'ce':ce, 'cesnorspm':cesnorspm, 'udssm':udssm, 'cal':cal,
             'ct':ct, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
-
-def favaliacao(cod_curso):
-    return
 
 def flocalizacao(cod_curso):
     latitude = []

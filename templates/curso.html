@@ -684,6 +684,42 @@ $(function () {
     });
 </script>
 
+<script type="text/javascript">
+$(function initMap() {
+    var marcadores = [
+        {% for i in localizacao %}
+        {
+            lat: {{i.LATITUDE}},
+            lng: {{i.LONGITUDE}}
+        },
+        {% endfor %}
+        {}
+    ]
+
+
+    var myLatLng = {lat: -8.754795, lng: -52.910156};
+
+    // Create a map object and specify the DOM element for display.
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        scrollwheel: false,
+        zoom: 4
+    });
+
+    // Create a marker and set its position.
+    for(i = 0; i < marcadores.length - 1; i++){
+        var marker = new google.maps.Marker({
+            map: map,
+            position: new google.maps.LatLng(marcadores[i].lat, marcadores[i].lng),
+            animation: google.maps.Animation.DROP,
+            title: 'Aluno da UFSM!'
+            });
+    }
+
+});
+</script>
+
+
 
 
 
@@ -742,6 +778,11 @@ $(function () {
     <br/><br/>
     <div id="divAmpl" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
 </div>
+<br/><br/>
+<hr/>
+<div id="map" class="container fill" style="min-width: 310px; max-width: 1000px; height: 700px; margin: 0 auto"></div>
+<br/><br/>
+<br/><br/>
 <div id="guide">
     <ul> 
         <li><a href="#infoboard">Índices Gerais do Curso</a></li>
@@ -754,6 +795,7 @@ $(function () {
         <li><a href="#divInfra">Nota Infraestrutura</a></li>
         <li><a href="#divRegTrab">Nota Regime de Trabalho</a></li>
         <li><a href="#divAmpl">Nota Ampliação da Formação</a></li>
+        <li><a href="#map">Localização de Origem dos Alunos</a></li>
     </ul>
 </div>
 {% endblock %}

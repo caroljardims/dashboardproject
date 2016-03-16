@@ -62,7 +62,7 @@ ${demo.css}
                         </li>
                         <li >
                           <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
-                            <span class="caret pull-left"></span> Avaliação Centros 
+                            <span class="caret pull-left"></span> Indicadores Centros 
                           </a>
                           <div class="collapse" id="toggleDemo" style="height: 0px;">
                             <ul class="nav nav-list">
@@ -74,25 +74,13 @@ ${demo.css}
                         </li>
                         <li>
                           <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
-                          <span class="caret pull-left"></span> Avaliação Cursos
+                          <span class="caret pull-left"></span> Indicadores Cursos
                           </a>
                           <div class="collapse" id="toggleDemo2" style="height: 0px;">
                             <ul class="nav nav-list">
                             {% for c in cursosmenu %}
                               <li><a href="/curso/{{ c.codigo_curso }}">{{ c.nome_curso|lower|capfirst }}</a></li>
                             {% endfor %}
-                            </ul>
-                          </div>
-                        </li>
-                        <li>
-                          <a href="#" data-toggle="collapse" data-target="#toggleDemo3" data-parent="#sidenav01" class="collapsed">
-                          <span class="caret pull-left"></span> Origem dos Alunos
-                          </a>
-                          <div class="collapse" id="toggleDemo3" style="height: 0px;">
-                            <ul class="nav nav-list">
-                              <li><a href="#">Submenu2.1</a></li>
-                              <li><a href="#">Submenu2.2</a></li>
-                              <li><a href="#">Submenu2.3</a></li>
                             </ul>
                           </div>
                         </li>
