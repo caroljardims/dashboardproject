@@ -72,6 +72,9 @@ for a in areas:
 def fcentro(cod_centro):
     centro = cpc.filter(id_centro = cod_centro)
     anos = centro.values('ano').distinct()
+    ano = anos.latest('ano')
+    ano = int(ano['ano'])
+    cursos = centro.filter(ano = ano).order_by('cpc_f2013').values('codigo_curso', 'nome_curso', 'cpc_f2013').distinct()
     d1 = []
     for a in anos:
         x = None
@@ -80,7 +83,7 @@ def fcentro(cod_centro):
         d1.append([centro[0].centro, a['ano'], x['cpc_f2013__avg']])
     centro = d1
 
-    return {'centro':centro, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
+    return {'centro':centro, 'cursos':cursos, 'ano':ano, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
 
 def fcurso(cod_curso):
     curso = cpc.filter(codigo_curso = cod_curso)
