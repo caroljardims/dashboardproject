@@ -11,17 +11,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import unicodedata
 from data.functions import *
 
-tsg = TSG.objects.all()
-cpc = CPC.objects.all().order_by("ano")
-igc = IGC.objects.all().order_by("ano")
-
 def index(request):
     context = geralufsm()
     return render_to_response('index.html', context)
 
-def igc(request):
+def general(request):
     context = geralufsm()
-    return render_to_response('igc.html', context)
+    return render_to_response('general.html', context)
 
 def centros(request):
     context = fcursos()
@@ -34,18 +30,6 @@ def centro(request, cod_centro):
 def curso(request, cod_curso):
     context = fcurso(cod_curso)
     return render(request,"curso.html", context)
-
-def list(request):
-	context = fcursos()
-	return render(request,"enade.html", context)
-
-def avaliacaoCurso(request, cod_curso):
-	context = favaliacao(cod_curso)
-	return render(request, "avaliacao.html", context)
-
-def listaCursos(request):
-    context = fcursos()
-    return render(request, "origin.html", context)
 
 def origemAlunos(request, cod_curso):
     context = flocalizacao(cod_curso)

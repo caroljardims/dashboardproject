@@ -18,7 +18,7 @@ html, body {
 }
 
 
-#infoboard, #notasEnade, #cpcGeralCurso{
+#infoboard, #notasEnade, #cpcGeralCurso, #map{
     min-width: 600px;
     text-align: center;
     padding: 90px;

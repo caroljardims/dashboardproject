@@ -10,9 +10,6 @@ urlpatterns = [
     url(r'^centros', 'data.views.centros', name='centros'),
     url(r'^centro/([0-9]*)/$', 'data.views.centro', name='centro'),
     url(r'^curso/([0-9]*)/$', 'data.views.curso', name='curso'),
-    url(r'^igc', 'data.views.igc', name='IGC UFSM'),
-    url(r'^enade', 'data.views.list', name='enade'),
-	url(r'^avaliacao/([0-9]*)/$', 'data.views.avaliacaoCurso', name='avaliacao'),
-    url(r'^origin', 'data.views.listaCursos', name='origin'),
+    url(r'^general', 'data.views.general', name='Geral UFSM'),
     url(r'^source/([0-9]*)/$', 'data.views.origemAlunos', name='origem_alunos'),
 ]
