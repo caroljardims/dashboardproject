@@ -67,26 +67,37 @@ ${demo.css}
                     Índices UFSM
                     </a>
                   </li>
-                  <li >
-                    <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
-                      <span class="caret pull-left"></span> Indicadores Centros 
+                  <li>
+                    <a href="#" data-toggle="collapse" data-target="#toggle2" data-parent="#sidenav01" class="collapsed">
+                    <span class="caret pull-left"></span> Indicadores Cursos
                     </a>
-                    <div class="collapse" id="toggleDemo" style="height: 0px;">
+                    <div class="collapse" id="toggle2" style="height: 0px;">
                       <ul class="nav nav-list">
-                        {% for c in centrosmenu %}
-                        <li><a href="/centro/{{ c.id_centro }}">{{ c.centro|upper }}</a></li>
+                      {% for centro in cursosmenu %}
+                        <li>
+                          <a href="#" data-toggle="collapse" data-target="#toggle{{ centro.0.id_centro }}" data-parent="#sidenav{{ centro.0.id_centro }}" class="collapsed">
+                            <span class="caret pull-left"></span> {{ centro.0.centro }}
+                            </a>
+                            <div class="collapse" id="toggle{{ centro.0.id_centro }}" style="height: 0px;">
+                              <ul class="nav nav-list-curso">
+                              {% for curso in centro %}
+                                <li class="dropdown-submenu pull-left"><a href="/curso/{{ curso.codigo_curso }}">{{ curso.nome_curso|lower|capfirst }}</a></li>
+                              {% endfor %}
+                              </ul>
+                            </div>
+                          </li>
                       {% endfor %}
                       </ul>
                     </div>
                   </li>
-                  <li>
-                    <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
-                    <span class="caret pull-left"></span> Indicadores Cursos
+                  <li >
+                    <a href="#" data-toggle="collapse" data-target="#toggle" data-parent="#sidenav01" class="collapsed">
+                      <span class="caret pull-left"></span> Indicadores Centros 
                     </a>
-                    <div class="collapse" id="toggleDemo2" style="height: 0px;">
+                    <div class="collapse" id="toggle" style="height: 0px;">
                       <ul class="nav nav-list">
-                      {% for c in cursosmenu %}
-                        <li><a href="/curso/{{ c.codigo_curso }}">{{ c.nome_curso|lower|capfirst }}</a></li>
+                        {% for c in centrosmenu %}
+                        <li><a href="/centro/{{ c.id_centro }}">{{ c.centro|upper }}</a></li>
                       {% endfor %}
                       </ul>
                     </div>

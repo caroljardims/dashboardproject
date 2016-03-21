@@ -8,6 +8,8 @@ html, body, .container-fluid, .row {
     background-color: #eeeeee;
 }
 
+
+
 .content{ height: 100%; min-height: 100%;}
 
 .fill{
@@ -20,6 +22,11 @@ html, body, .container-fluid, .row {
     float: none !important;
 }
 
+.nav-list-curso{
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -29,20 +36,6 @@ html, body, .container-fluid, .row {
 
 #wrapper.toggled {
     padding-left: 250px;
-}
-
-#sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 0;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #f3f3f3;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
 }
 
 #wrapper.toggled #sidebar-wrapper {

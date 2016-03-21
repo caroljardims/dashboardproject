@@ -7,21 +7,30 @@ from django.db.models import Avg
 tsg = TSG.objects.all()
 cpc = CPC.objects.all().order_by("ano")
 
-cursosmenu = cpc.order_by("nome_curso").values("nome_curso","codigo_curso").distinct()
 centrosmenu = cpc.order_by("centro").values("centro","id_centro").distinct()
+cursosmenu = []
 
+cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(cal)
+ccne = cpc.filter(centro = "CCNE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ccne)
+ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ccr)
+ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ccs)
+ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ccsh)
+ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ce)
 cesnorsfw = cpc.filter(centro = "CESNORS FW").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ccsh = cpc.filter(centro = "CCSH").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ccs = cpc.filter(centro = "CCS").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ccr = cpc.filter(centro = "CCR").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ccne = cpc.filter(centro = "CCNE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ce = cpc.filter(centro = "CE").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
-ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro").distinct()
+cefd = cpc.filter(centro = "CEFD").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(cefd)
+ct = cpc.filter(centro = "CT").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ct)
+ctism = cpc.filter(centro = "CTISM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+cursosmenu.append(ctism)
+cesnorspm = cpc.filter(centro = "CESNORS PM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
+udssm = cpc.filter(centro = "UDSSM").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
 
 def geralufsm():
     d1 = tsg.order_by('ano').values('centro','ano','tsgufsm').distinct()
@@ -29,6 +38,8 @@ def geralufsm():
 
     context = {'ufsm':igc_ufsm}
     ano = IGC.objects.values('ano').distinct().order_by("ano")
+
+    print cursosmenu
 
     posicao = []
     total = []
