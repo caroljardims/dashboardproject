@@ -2,6 +2,58 @@
 {% block body%}
 {% load static %}
 <div id="wrapperinfo">
+<div class="container">
+<div class="col-md-15">
+	<h3>Painel de Indicadores da UFSM</h3>
+	<br>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox" style="height:500px;">
+      <div class="item active">
+        <img src="{% static "img/graficos-excel-2.png"%}" alt="Chania">
+      </div>
+
+      <div class="item">
+        <img src="{% static "img/graficos-excel-2.png"%}"  alt="Chania">
+      </div>
+    
+      <div class="item">
+        <img src="{% static "img/graficos-excel-2.png"%}"  alt="Flower">
+      </div>
+
+      <div class="item">
+        <img src="{% static "img/graficos-excel-2.png"%}"  alt="Flower">
+      </div>
+    </div>
+  </div>
+</div>
+
+	<div class="col-md-6">
+		<div class="panel">
+			<h4> Índices Gerais </h4>
+		<img src="{% static "img/graficos-excel-2.png"%}" style="width: 400px;" />
+	</div>
+	</div>
+	<div class="col-md-6">
+		<div class= "panel">
+			<h4> Indicadores Cursos </h4>
+		<img src="{% static "img/graficos-excel-2.png"%}" style="width: 400px;" />
+	</div>
+	</div>
+	<div class="col-md-6">
+		<div class= "panel">
+			<h4> Indicadores Centros </h4>
+		<img src="{% static "img/graficos-excel-2.png"%}" style="width: 400px;" />
+	</div>
+	</div>
+	<div class="col-md-6">
+		<div class= "panel">
+			<h4> Outros </h4>
+		<img src="{% static "img/graficos-excel-2.png"%}" style="width: 400px;" />
+	</div>
+	</div>
+ </div>
+</div>
 </div>
 {% endblock %}
