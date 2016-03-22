@@ -10,7 +10,7 @@ html, body, .container-fluid, .row {
 
 
 
-.content{ height: 100%; min-height: 100%;}
+.content{ height: 100%; min-height: 600px;}
 
 .fill{
     width:100%;
@@ -18,13 +18,19 @@ html, body, .container-fluid, .row {
     min-height:100%;
     padding:10px;
     padding-top: 50px;
-    margin-bottom: 90px;
+    margin-bottom: 50px;
     float: none !important;
 }
 
 .nav-list-curso{
 	max-height: 500px;
 	overflow-y: scroll;
+	background-color: #f3f3f3;
+}
+
+.nav-list{
+	max-height: 900px;
+	overflow-y:scroll;
 }
 
 #wrapper {
