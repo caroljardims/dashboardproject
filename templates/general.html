@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block body%}
+{% load static %}
+<script type="text/javascript">
+    $(function () {
+        $('#containertsg').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'TSG UFSM'
+            },
+
+            xAxis: {
+                crosshair: true,
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'TSG'
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+            {
+                name: 'UFSM',
+                data: [{% for x in d1 %} [{{ x.ano }}, {{ x.tsgufsm }}],{% endfor %}],
+                color:'#ffa262',
+            },
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+$(function () {
+    $('#containercpc').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Evolução do CPC por Triênio da Avaliação (ENADE)'
+        },
+        subtitle: {
+            text: 'UFSM, RS, Brasil'
+        },
+        xAxis: [{
+            categories: [2009, 2010, 2011, 2012, 2013, 2014],
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                },
+                enabled: false
+            },
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'CPC UFSM',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                },
+            }
+
+        }, { // Tertiary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                },
+                enabled: false
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true,
+            min: 0,
+            max: 5,
+        }],
+        tooltip: {
+            shared: true
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 5,
+                    borderRadius: 5,
+                    borderWidth: 1,
+                    borderColor:'#c6c6c6',
+                    backgroundColor: '#FFFFFF',
+                },
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 30,
+            verticalAlign: 'top',
+            y: 25,
+            floating: true,
+            backgroundColor: '#FFFFFF'
+        },
+        series: [{
+            name: 'UFSM',
+            type: 'column',
+            //yAxis: 1,
+            color:'#ffa262',
+            // dados reais adicionados manualmente
+            data: [3.48, 3.58, 3.24, 3.18, 3.04, 3.24],
+            tooltip: {
+                valueSuffix: ''
+            },
+
+        }, {
+            name: 'CPC Brasil',
+            type: 'spline',
+            //yAxis: 2,
+            color: '#3e8513',
+            // dados reais adicionados manualmente
+            data: [2.33, 2.36, 2.49, 2.61, 2.66, 2.66],
+            marker: {
+                enabled: true
+            },
+            dashStyle: 'shortdot',
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'CPC RS',
+            type: 'spline',
+            color: '#d60707',
+            // dados reais adicionados manualmente
+            data: [2.75, 2.78, 2.90, 2.96, 2.97, 2.91],
+            tooltip: {
+                valueSuffix: ' '
+            }
+        }]
+    });
+});
+</script>
+
+
+<script type="text/javascript">
+$(function () {
+    $('#containerigcufsm').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Evolução do IGC da UFSM'
+        },
+        xAxis: [{
+            categories: [{% for i in ufsm %} {{i.ano}}, {% endfor %}],
+            crosshair: false
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            title: {
+                text: 'IGC Faixa',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'IGC Contínuo',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 120,
+            verticalAlign: 'top',
+            y: 20,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 5,
+                },
+            }
+        },
+        series: [{
+            name: 'IGC Contínuo',
+            type: 'column',
+            yAxis: 0,
+            color: '#ff8533',
+            data: [{% for i in ufsm %} {{i.igc_continuo}}, {% endfor %}],
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'IGC Faixa',
+            type: 'spline',
+            color: '#494949',
+            data: [{% for i in ufsm %} {{i.igc_faixa}}, {% endfor %}],
+            tooltip: {
+                valueSuffix: ''
+            }
+        }]
+    });
+});
+</script>
+
+<script type="text/javascript">
+$(function () {
+    $('#containerigcmec').highcharts({
+        chart: {
+            zoomType: ''
+        },
+        title: {
+            text: 'IGC MEC - Evolução da posição da UFSM entre as Universidades'
+        },
+        xAxis: [{
+            categories: [{% for i in ufsm %} {{i.ano}}, {% endfor %}],
+            crosshair: false
+        }],
+        yAxis: [{ // Primary yAxis
+            min: 0,
+            max: 300,
+            title: {
+                text: 'Posição',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, {
+            min: 0,
+            max: 300,
+            title: {
+                text: 'Total de instituições',
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: 'Highcharts.getOptions().colors[0]',
+            },
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'horizontal',
+            align: 'center',
+            y: 30,
+            padding: 30,
+            verticalAlign: 'top',
+            floating: true,
+            backgroundColor:'#FFFFFF',
+            itemDistance: 20,
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 12,
+                    style: {
+                        fontSize: 20,
+                    }
+                },
+            },
+            scatter:{
+                marker:{
+                    radius: 20,
+                    inside: true,
+                    fillColor: '#ffd0b0',
+                    lineWidth: 2,
+                    lineColor: '#ff8533'
+                },
+                inside: true,
+            },
+        },
+        series: [
+        {
+            name: 'Total de instituições',
+            type: 'column',
+            pointWidth: 30,
+            yAxis: 1,
+            color:'#ffa262',
+            data: [{% for i in total_ies %} {{ i }}, {% endfor %}],
+        },
+        {
+            name: 'Posição UFSM',
+            type: 'scatter',
+            data: [{% for i in posicao %} {{ i }}, {% endfor %}],
+            tooltip: {
+                valueSuffix: 'º'
+            },
+        }]
+    });
+});
+</script>
+
+
+<br/>
+<div class="container fill">
+<div id="containercpc" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
+<br/>
+</div>
+<div class="container fill">
+<div id="containerigcmec" class="fill" style="min-width: 310px; max-width: 1000px; height: 600px; margin: 0 auto"></div>
+<br/>
+</div>
+<div class="container fill">
+<div id="containerigcufsm" class="fill" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+<br/>
+</div>
+<div class="container fill">
+<div id="containertsg" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
+</div>
+</div>
+
+<div id="guide">
+    <ul> 
+        <li><a href="#containercpc">Evolução do CPC</a></li>
+        <li><a href="#containerigcmec">IGC MEC</a></li>
+        <li><a href="#containerigcufsm">Evolução IGC</a></li>
+        <li><a href="#containertsg">TSG</a></li>
+    </ul>
+</div>
+{% endblock %}
