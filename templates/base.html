@@ -75,10 +75,10 @@ ${demo.css}
                       <ul class="nav nav-list">
                       {% for centro in cursosmenu %}
                         <li>
-                          <a href="#" data-toggle="collapse" data-target="#toggle{{ centro.0.id_centro }}" data-parent="#sidenav{{ centro.0.id_centro }}" class="collapsed">
+                          <a href="#" data-toggle="collapse" data-target="#toggle00{{ centro.0.id_centro }}" data-parent="#sidenav00{{ centro.0.id_centro }}" class="collapsed">
                             <span class="caret pull-left"></span> {{ centro.0.centro }}
                             </a>
-                            <div class="collapse" id="toggle{{ centro.0.id_centro }}" style="height: 0px;">
+                            <div class="collapse" id="toggle00{{ centro.0.id_centro }}" style="height: 0px;">
                               <ul class="nav nav-list-curso">
                               {% for curso in centro %}
                                 <li class="dropdown-submenu pull-left"><a href="/curso/{{ curso.codigo_curso }}">{{ curso.nome_curso|lower|capfirst }}</a></li>
@@ -109,5 +109,4 @@ ${demo.css}
       </div>
     </div>
 </body>
-
 </html>
