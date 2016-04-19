@@ -5,7 +5,7 @@
 html, body {
     margin:0;
     padding:0;
-    min-width: 1600px; 
+    min-width: 1400px;
 }
 
 #wrapperinfo {
@@ -29,7 +29,7 @@ html, body {
     opacity: 0.8;
     background-color: #4c4c4c;
     right: 20px;
-    display: inline-block; 
+    display: inline-block;
     padding: 10px;
     top: 15%;
     font-family: Arial, Helvetica, sans-serif;
@@ -43,7 +43,7 @@ html, body {
 
 #guide li a{
     text-decoration: none;
-    padding: 10px;
+    padding: 4px;
     display: block;
     color: #c4c4c4;
 }
