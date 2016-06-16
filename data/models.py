@@ -140,6 +140,7 @@ class CPC(models.Model):
     num_docentes = models.IntegerField(default=0)
     num_matr_culas = models.IntegerField(default=0)
     id_centro = models.IntegerField(default=0)
+    enade_faixa = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.nome_curso + " " + str(self.ano)
