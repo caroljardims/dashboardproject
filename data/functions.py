@@ -39,8 +39,6 @@ def geralufsm():
     context = {'ufsm':igc_ufsm}
     ano = IGC.objects.values('ano').distinct().order_by("ano")
 
-    print cursosmenu
-
     posicao = []
     total = []
     for i in ano:
@@ -99,7 +97,7 @@ def fcentro(cod_centro):
 def fcurso(cod_curso):
     curso = cpc.filter(codigo_curso = cod_curso)
     atsg = tsg.filter(codcurso = cod_curso)
-    for a in atsg: print a.nomecurso
+    # for a in atsg: print a.nomecurso
     latest = curso.latest('ano')
     atual = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso).latest('ano')
     ano = atual.ano
@@ -266,7 +264,7 @@ def fcursos():
     centros = []
     for c in cpc:
         centros.append(c.id_centro)
-    
+
     centros = list(set(centros))
 
     cpc_centro = cpc.filter(ano=anocpc).order_by("cpc_f2013")
