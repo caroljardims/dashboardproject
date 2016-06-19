@@ -38,7 +38,7 @@ class CPC(models.Model):
     codigo_curso = models.IntegerField(default=0)
     nome_curso = models.CharField(max_length=50)
     centro = models.CharField(max_length=10)
-    cpc_antigo = models.CharField(max_length=4)
+    cpc_continuo = models.CharField(max_length=4)
     nc = models.FloatField(default=0)
     nidd = models.FloatField(default=0)
     nm = models.FloatField(default=0)
@@ -133,7 +133,15 @@ class CPC(models.Model):
     max_ifes_br = models.FloatField(default=0)
     max_ifes_sul = models.FloatField(default=0)
     max_ifes_rs = models.FloatField(default=0)
-    CPC_FAIXA = models.IntegerField(default=0)
+    cpc_faixa = models.IntegerField(default=0)
+    concluintes_inscritos = models.IntegerField(default=0, null=True, blank=True)
+    concluintes_participantes = models.IntegerField(default=0)
+    concluintes_participantes_nota_enem = models.IntegerField(default=0)
+    num_docentes = models.IntegerField(default=0)
+    num_matr_culas = models.IntegerField(default=0)
+    id_centro = models.IntegerField(default=0)
+    enade_faixa = models.IntegerField(default=0)
+
     def __unicode__(self):
         return self.nome_curso + " " + str(self.ano)
 
