@@ -1,14 +1,146 @@
 {% extends "base.html" %}
 {% block body%}
 {% load static %}
+<script type="text/javascript">
+$(function () {
+    $('#containercpc').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Evolução do CPC por Triênio da Avaliação (ENADE)'
+        },
+        subtitle: {
+            text: 'UFSM, RS, Brasil'
+        },
+        xAxis: [{
+            categories: [2009, 2010, 2011, 2012, 2013, 2014],
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                },
+                enabled: false
+            },
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'CPC UFSM',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                },
+            }
+
+        }, { // Tertiary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: '',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                },
+                enabled: false
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true,
+            min: 0,
+            max: 5,
+        }],
+        tooltip: {
+            shared: true
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    align: 'center',
+                    padding: 5,
+                    borderRadius: 5,
+                    borderWidth: 1,
+                    borderColor:'#c6c6c6',
+                    backgroundColor: '#FFFFFF',
+                },
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 30,
+            verticalAlign: 'top',
+            y: 25,
+            floating: true,
+            backgroundColor: '#FFFFFF'
+        },
+        series: [{
+            name: 'UFSM',
+            type: 'line',
+            //yAxis: 1,
+            color:'#ffa262',
+            // dados reais adicionados manualmente
+            data: [3.48, 3.58, 3.24, 3.18, 3.04, 3.24],
+            tooltip: {
+                valueSuffix: ''
+            },
+
+        }, {
+            name: 'CPC Brasil',
+            type: 'line',
+            //yAxis: 2,
+            color: '#3e8513',
+            // dados reais adicionados manualmente
+            data: [2.33, 2.36, 2.49, 2.61, 2.66, 2.66],
+            marker: {
+                enabled: true
+            },
+            dashStyle: 'shortdot',
+            tooltip: {
+                valueSuffix: ''
+            }
+
+        }, {
+            name: 'CPC RS',
+            type: 'line',
+            color: '#d60707',
+            // dados reais adicionados manualmente
+            data: [2.75, 2.78, 2.90, 2.96, 2.97, 2.91],
+            tooltip: {
+                valueSuffix: ' '
+            }
+        }]
+    });
+});
+</script>
 <div id="wrapperinfo">
 <div class="container">
 <div class="col-md-15">
-	<h3 style="text-align: center;">Painel de Indicadores da UFSM</h3>
+	<h3 style="text-align: center;">Painel de Indicadores do SmartCPC da UFSM</h3>
 	<br>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+	<div class="container fill">
+<div id="containercpc" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
+<br/>
+<!--  <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-    <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox" style="height:350px;">
       <div class="item active">
         <img src="{% static "img/chart.png"%}" />
@@ -52,7 +184,7 @@
 			<h4> Outros </h4>
 		<img src="{% static "img/chart1.png"%}" style="width: 400px;" />
 	</div>
-	</div>
+	</div> -->
  </div>
 </div>
 </div>
