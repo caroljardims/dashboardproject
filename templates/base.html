@@ -4,18 +4,13 @@
 
     <head>
         <title>Indicadores</title>
-        <link rel="stylesheet" href="{% static "css/style.css" %}" /> <!-- CSS -->
-        <link rel="stylesheet" href="{% static "css/dropdown.css" %}" /> <!-- CSS -->
-        <link rel="stylesheet" href="{% static "css/menustyle.css" %}" /> <!-- CSS -->
         <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}" /> <!-- CSS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="{% static "js/jquery.min.js"%}"></script>
         <script src="{% static "bootstrap/js/bootstrap.min.js"%}"></script>
         <script src="{% static "js/highcharts.js"%}"></script>
         <script src="{% static "js/modules/exporting.js"%}"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDaQE1I9GR7muHy4cTypUTWtwIW8jYR_nU&amp;sensor=false"></script> <!-- Google Maps -->
-        <style type="text/css">
-${demo.css}
-        </style>
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDaQE1I9GR7muHy4cTypUTWtwIW8jYR_nU&amp;sensor=false"></script>
         <script>
           $(function() {
             $('a[href*="#"]:not([href="#"])').click(function() {
@@ -32,31 +27,68 @@ ${demo.css}
             });
           });
         </script>
+
+        <style>
+
+        .jumbotron {
+            background-color: #fff;
+            color: #000;
+            padding: 100px 25px;
+            font-family: Montserrat, sans-serif;
+      }
+
+        </style>
     </head>
-
 <body>
-<!--
-    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="/index/" class="navbar-brand"><img src="{% static "img/monograma_pequeno.gif"%}"/></a>
-        </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 
-        </nav>
-      </div>
-    </header>
--->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-9 col-md-offset-1 content">
-                <br/><br/><br/>
-                <div id="wrapperinfo" class="container">
-                {% block body %} {% endblock %}
-              </div>
-            </div>
-        </div>
-        <div class="col-md-3 sidebar">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/index/">UFSM</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/general/">Índices Gerais</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/centros/"> Centros <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/centros/">Índice dos Centros</li>
+           {% for c in centrosmenu %}
+              <li><a href="/centro/{{ c.id_centro }}">{{ c.centro|upper }}</a></li>
+            {% endfor %}
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/centros/"> Cursos <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+           {% for centro in cursosmenu %}
+              <li><a data-toggle="collapse" data-target="#teste" href="#">{{ centro.0.centro }}</a>
+                <div id="teste" class="collapse">
+                  oxe
+                </div>
+              </li>
+            {% endfor %}
+        </ul>
+      </li>
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="jumbotron">
+
+  {% block body %} {% endblock %}
+
+</div>
+</body>
+</html>
+
+
+
+
+
+<!--
+
+
+<div class="col-md-3 sidebar">
           <div class="sidebar-nav">
             <div class="navbar navbar-default" role="navigation">
               <div class="navbar-collapse collapse sidebar-navbar-collapse">
@@ -103,10 +135,10 @@ ${demo.css}
                     </div>
                   </li>
                 </ul>
-              </div><!--/.nav-collapse -->
+              </div>
             </div>
         </div>
       </div>
-    </div>
-</body>
-</html>
+
+
+-->

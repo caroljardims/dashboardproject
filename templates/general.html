@@ -2,6 +2,40 @@
 
 {% block body%}
 {% load static %}
+
+
+
+<br/>
+<div class="container fill">
+<div id="containercpc" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
+<br/>
+</div>
+<div class="container fill">
+<div id="containerigcmec" class="fill" style="min-width: 310px; max-width: 1000px; height: 600px; margin: 0 auto"></div>
+<br/>
+</div>
+<div class="container fill">
+<div id="containerigcufsm" class="fill" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+<br/>
+</div>
+<div class="container fill">
+<div id="containertsg" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
+</div>
+</div>
+
+<div id="guide">
+    <ul> 
+        <li><a href="#containercpc">Evolução do CPC</a></li>
+        <li><a href="#containerigcmec">IGC MEC</a></li>
+        <li><a href="#containerigcufsm">Evolução IGC</a></li>
+        <li><a href="#containertsg">TSG</a></li>
+    </ul>
+</div>
+
+
+
+<!-- Script dos Gráficos -->
+
 <script type="text/javascript">
     $(function () {
         $('#containertsg').highcharts({
@@ -348,30 +382,4 @@ $(function () {
 </script>
 
 
-<br/>
-<div class="container fill">
-<div id="containercpc" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
-<br/>
-</div>
-<div class="container fill">
-<div id="containerigcmec" class="fill" style="min-width: 310px; max-width: 1000px; height: 600px; margin: 0 auto"></div>
-<br/>
-</div>
-<div class="container fill">
-<div id="containerigcufsm" class="fill" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-<br/>
-</div>
-<div class="container fill">
-<div id="containertsg" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
-</div>
-</div>
-
-<div id="guide">
-    <ul> 
-        <li><a href="#containercpc">Evolução do CPC</a></li>
-        <li><a href="#containerigcmec">IGC MEC</a></li>
-        <li><a href="#containerigcufsm">Evolução IGC</a></li>
-        <li><a href="#containertsg">TSG</a></li>
-    </ul>
-</div>
 {% endblock %}
