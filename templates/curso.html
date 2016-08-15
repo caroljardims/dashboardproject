@@ -2,6 +2,114 @@
 
 {% block body%}
 {% load static %}
+
+<!--
+<div id="infoboard" class="container fill">
+<h2>CPC {{ ultimo.nome_curso|lower|capfirst }} UFSM - Índices Gerais </h2><br/>
+    <div class="info1">
+        <img class="left" src="{% static "img/icon_avaliacao.png" %}" />
+        <b>Ano da Última Avaliação:</b>   <p>{{ ultimo.ano }}</p>
+        <b>Índice da Última Avaliação:</b> <p>{{ ultimo.cpc_f2013 }}</p>
+    </div>
+    <div class="info2">
+        <img class="left" src="{% static "img/icon_posicao.png" %}" />
+        <b>Posicionamento no Estado:</b> <p> {{ ultimo.posicaorscpc }} </p>
+        <b>Posicionamento no País:</b> <p>{{ ultimo.posicaobrasilcpc }}</p>
+    </div>
+</div>
+-->
+
+<hr/>
+<div id="cpcGeralCurso" class="container fill">
+    <div id="container" style=" min-width: 310px; width: 100%; height: 500px; margin: 0 auto"></div><br/>
+</div>
+<hr/>
+
+<h2> Em detalhes </h2>
+
+<div id="notasEnade">
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modelENADE">Avaliação</button>
+    <div class="modal fade" id="modelENADE" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Avaliação</h4>
+                </div>
+
+                <div class="modal-body">
+                <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divEnade"> ENADE </button>
+
+                <div id="divEnade" class="collapse" style=" min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+
+                <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divIdd"> IDD </button>
+                
+                <div id="divIdd" class="collapse" style="min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+                </div>
+       
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modelMestre">Corpo Docente</button>
+    <div class="modal fade" id="modelMestre" role="dialog">
+        <div class="modal-dialog">
+
+             <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Corpo Docente</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divMestre"> Mestres </button>
+
+                    <div id="divMestre" class="collapse" style=" padding-top: 150px; min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+
+                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divDoutores"> Doutores </button>
+
+                    <div id="divDoutores" class="collapse" style=" padding-top: 150px; min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modelOrgPed"> Institucional </button>
+    <div class="modal fade" id="modelOrgPed" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"> Institucional </h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divOrgPed"> Organização Pedagógica </button>
+                    <div id="divOrgPed" class="collapse" style=" padding-top: 150px; min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divInfra"> Infraestrutura </button>
+                    <div id="divInfra" class="collapse" style=" padding-top: 150px; min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divRegTrab"> Regime de Trabalho </button>
+                    <div id="divRegTrab" class="collapse" style=" padding-top: 150px; min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+                    <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#divAmpl"> Ampliação </button>
+                    <div id="divAmpl" class="collapse" style=" padding-top: 150px; min-width: 600px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<br/><br/>
+<hr/>
+
 <script type="text/javascript">
 $(function () {
     $('#container').highcharts({
@@ -719,86 +827,4 @@ $(function initMap() {
 });
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="infoboard" class="container fill">
-<h2>CPC {{ ultimo.nome_curso|lower|capfirst }} UFSM - Índices Gerais </h2><br/>
-    <div class="info1">
-        <img class="left" src="{% static "img/icon_avaliacao.png" %}" />
-        <b>Ano da Última Avaliação:</b>   <p>{{ ultimo.ano }}</p>
-        <b>Índice da Última Avaliação:</b> <p>{{ ultimo.cpc_f2013 }}</p>
-    </div>
-    <div class="info2">
-        <img class="left" src="{% static "img/icon_posicao.png" %}" />
-        <b>Posicionamento no Estado:</b> <p> {{ ultimo.posicaorscpc }} </p>
-        <b>Posicionamento no País:</b> <p>{{ ultimo.posicaobrasilcpc }}</p>
-    </div>
-</div>
-<hr/>
-<div id="cpcGeralCurso" class="container fill">
-    <div id="container" style=" padding-top: 150px; min-width: 310px; width: 100%; height: 500px; margin: 0 auto"></div><br/>
-</div>
-<hr/>
-<div id="notasEnade">
-    <div id="divEnade" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divIdd" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divMestre" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divDoutores" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divOrgPed" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divInfra" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divRegTrab" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-    <br/><br/>
-    <div id="divAmpl" style=" padding-top: 150px; min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
-</div>
-<br/><br/>
-<hr/>
-<br/><br/>
-<h3 style="text-align:center;">Localização de Origem dos Ingressantes</h3>
-<br/><br/>
-<div id="map" class="container fill" style="min-width: 310px; max-width: 1000px; height: 700px; margin: 0 auto"></div>
-<br/><br/>
-<br/><br/>
-<div id="guide">
-    <ul>
-        <li><a href="#infoboard">Índices Gerais do Curso</a></li>
-        <li><a href="#cpcGeralCurso">CPC Geral do Curso</a></li>
-        <li><a href="#notasEnade">Enade</a></li>
-        <li><a href="#divIdd">IDD</a></li>
-        <li><a href="#divMestre">Mestres</a></li>
-        <li><a href="#divDoutores">Doutores</a></li>
-        <li><a href="#divOrgPed">Organização Pedagógica</a></li>
-        <li><a href="#divInfra">Infraestrutura</a></li>
-        <li><a href="#divRegTrab">Regime de Trabalho</a></li>
-        <li><a href="#divAmpl">Ampliação da Formação</a></li>
-        <li><a href="#map">Origem dos Ingressantes</a></li>
-    </ul>
-</div>
 {% endblock %}
