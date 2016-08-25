@@ -9,6 +9,7 @@ cpc = CPC.objects.all().order_by("ano")
 
 centrosmenu = cpc.order_by("centro").values("centro","id_centro").distinct()
 cursosmenu = []
+benchs = ["UFSM","UFRGS","FAAPF","UCS","UERGS","FEEVALE","UFPEL","UNICRUZ","PUCRS","UNIJUI","UPF","UFCSPA","URI","UCPEL","UNISC","UNISINOS","UNIPAMPA","ULBRA","UNIFRA","FADISMA","FISMA","FURG","FAPAS","URCAMP","UNIJUÍ"]
 
 cal = cpc.filter(centro = "CAL").order_by("nome_curso").values("nome_curso","codigo_curso","id_centro", "centro").distinct()
 cursosmenu.append(cal)
@@ -103,18 +104,17 @@ def fcurso(cod_curso):
     ano = atual.ano
     area = atual.area
     ufsm = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = 'UFSM')
+    cursos = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b)
+        for v in var:
+            cursos.append(v)
 
     # NC
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nc')
     i=0
-    nc = []
-    for g in geral:
-        i+=1
-        nc.append(g)
-        if i == 20: break
-    if ufsm[0] not in nc:
-        nc.pop()
-        nc.append(ufsm[0])
+    nc = cursos
+
     media_nc_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nc'))
     media_nc_br = media_nc_br['nc__avg']
     media_nc_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nc'))
@@ -123,14 +123,8 @@ def fcurso(cod_curso):
     # NIDD
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nidd')
     i=0
-    nidd = []
-    for g in geral:
-        i+=1
-        nidd.append(g)
-        if i == 20: break
-    if ufsm[0] not in nidd:
-        nidd.pop()
-        nidd.append(ufsm[0])
+    nidd = cursos
+
     media_nidd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nidd'))
     media_nidd_br = media_nidd_br['nidd__avg']
     media_nidd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nidd'))
@@ -139,14 +133,8 @@ def fcurso(cod_curso):
     # NM
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nm')
     i=0
-    nm = []
-    for g in geral:
-        i+=1
-        nm.append(g)
-        if i == 20: break
-    if ufsm[0] not in nm:
-        nm.pop()
-        nm.append(ufsm[0])
+    nm = cursos
+
     media_nm_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nm'))
     media_nm_br = media_nm_br['nm__avg']
     media_nm_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nm'))
@@ -155,14 +143,8 @@ def fcurso(cod_curso):
     # ND
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nd')
     i=0
-    nd = []
-    for g in geral:
-        i+=1
-        nd.append(g)
-        if i == 20: break
-    if ufsm[0] not in nd:
-        nd.pop()
-        nd.append(ufsm[0])
+    nd = cursos
+
     media_nd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nd'))
     media_nd_br = media_nd_br['nd__avg']
     media_nd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nd'))
@@ -171,14 +153,8 @@ def fcurso(cod_curso):
     # NR
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nr')
     i=0
-    nr = []
-    for g in geral:
-        i+=1
-        nr.append(g)
-        if i == 20: break
-    if ufsm[0] not in nr:
-        nr.pop()
-        nr.append(ufsm[0])
+    nr = cursos
+
     media_nr_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nr'))
     media_nr_br = media_nr_br['nr__avg']
     media_nr_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nr'))
@@ -187,14 +163,8 @@ def fcurso(cod_curso):
     # NO
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-no')
     i=0
-    no = []
-    for g in geral:
-        i+=1
-        no.append(g)
-        if i == 20: break
-    if ufsm[0] not in no:
-        no.pop()
-        no.append(ufsm[0])
+    no = cursos
+
     media_no_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('no'))
     media_no_br = media_no_br['no__avg']
     media_no_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('no'))
@@ -203,14 +173,8 @@ def fcurso(cod_curso):
     # NF
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nf')
     i=0
-    nf = []
-    for g in geral:
-        i+=1
-        nf.append(g)
-        if i == 20: break
-    if ufsm[0] not in nf:
-        nf.pop()
-        nf.append(ufsm[0])
+    nf = cursos
+
     media_nf_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nf'))
     media_nf_br = media_nf_br['nf__avg']
     media_nf_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nf'))
@@ -219,14 +183,8 @@ def fcurso(cod_curso):
     # NA
     geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-na')
     i=0
-    na = []
-    for g in geral:
-        i+=1
-        na.append(g)
-        if i == 20: break
-    if ufsm[0] not in na:
-        na.pop()
-        na.append(ufsm[0])
+    na = cursos
+
     media_na_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('na'))
     media_na_br = media_na_br['na__avg']
     media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
