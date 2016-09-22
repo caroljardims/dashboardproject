@@ -93,15 +93,15 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/index/">UFSM</a>
+      <a class="navbar-brand" href="/dashboard/index/">UFSM</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/general/">Índices Gerais</a></li>
+      <li class="active"><a href="/dashboard/general/">Índices Gerais</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/centros/"> Centros <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/dashboard/centros/">Índice dos Centros</li>
            {% for c in centrosmenu %}
-              <li><a href="/centro/{{ c.id_centro }}">{{ c.centro|upper }}</a></li>
+              <li><a href="/dashboard/centro/{{ c.id_centro }}">{{ c.centro|upper }}</a></li>
             {% endfor %}
         </ul>
       </li>
@@ -113,7 +113,7 @@
             <ul class="dropdown-menu">
               {% for curso in centro %}
               <li>
-                <a href="/curso/{{ curso.codigo_curso }}">{{ curso.nome_curso|lower|capfirst }}</a>
+                <a href="/dashboard/curso/{{ curso.codigo_curso }}">{{ curso.nome_curso|lower|capfirst }}</a>
               </li>
               {% endfor %}
             </ul>
