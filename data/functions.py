@@ -125,107 +125,121 @@ def fcurso(cod_curso):
     area = atual.area
     ufsm = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = 'UFSM')
     cursos = []
+
     for b in benchs:
         var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b)
         for v in var:
             cursos.append(v)
-
     # NC
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nc')
-    i=0
-    nc = cursos
-
+    nc = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b)
+        for v in var:
+            nc.append(v)
+    nc = sorted(nc, key=lambda x: x.nc, reverse = True)
+    nc = nc[:20]
     media_nc_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nc'))
     media_nc_br = media_nc_br['nc__avg']
     media_nc_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nc'))
     media_nc_rs = media_nc_rs['nc__avg']
 
     # NIDD
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nidd')
-    i=0
-    nidd = cursos
-
+    nidd = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('nidd')
+        for v in var:
+            nidd.append(v)
+    nidd = sorted(nidd, key=lambda x: x.nidd, reverse = True)
+    nidd = nidd[:20]
     media_nidd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nidd'))
     media_nidd_br = media_nidd_br['nidd__avg']
     media_nidd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nidd'))
     media_nidd_rs = media_nidd_rs['nidd__avg']
 
     # NM
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nm')
-    i=0
-    nm = cursos
-
+    nm = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('nm')
+        for v in var:
+            nm.append(v)
+    nm = sorted(nm, key=lambda x: x.nm, reverse = True)
+    nm = nm[:20]
     media_nm_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nm'))
     media_nm_br = media_nm_br['nm__avg']
     media_nm_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nm'))
     media_nm_rs = media_nm_rs['nm__avg']
 
     # ND
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nd')
-    i=0
-    nd = cursos
-
+    nd = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('nd')
+        for v in var:
+            nd.append(v)
+    nd = sorted(nd, key=lambda x: x.nd, reverse = True)
+    nd = nd[:20]
     media_nd_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nd'))
     media_nd_br = media_nd_br['nd__avg']
     media_nd_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nd'))
     media_nd_rs = media_nd_rs['nd__avg']
 
     # NR
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nr')
-    i=0
-    nr = cursos
-
+    nr = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('nr')
+        for v in var:
+            nr.append(v)
+    nr = sorted(nr, key=lambda x: x.nr, reverse = True)
+    nr = nr[:20]
     media_nr_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nr'))
     media_nr_br = media_nr_br['nr__avg']
     media_nr_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nr'))
     media_nr_rs = media_nr_rs['nr__avg']
 
     # NO
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-no')
-    i=0
-    no = cursos
-
+    no = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('no')
+        for v in var:
+            no.append(v)
+    no = sorted(no, key=lambda x: x.no, reverse = True)
+    no = no[:20]
     media_no_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('no'))
     media_no_br = media_no_br['no__avg']
     media_no_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('no'))
     media_no_rs = media_no_rs['no__avg']
 
     # NF
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-nf')
-    i=0
-    nf = cursos
-
+    nf = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('nf')
+        for v in var:
+            nf.append(v)
+    nf = sorted(nf, key=lambda x: x.nf, reverse = True)
+    nf = nf[:20]
     media_nf_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('nf'))
     media_nf_br = media_nf_br['nf__avg']
     media_nf_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('nf'))
     media_nf_rs = media_nf_rs['nf__avg']
 
     # NA
-    geral = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).order_by('-na')
-    i=0
-    na = cursos
-
+    na = []
+    for b in benchs:
+        var = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, sigla_ies = b).order_by('na')
+        for v in var:
+            na.append(v)
+    na = sorted(na, key=lambda x: x.na, reverse = True)
+    na = na[:20]
     media_na_br = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano).aggregate(Avg('na'))
     media_na_br = media_na_br['na__avg']
     media_na_rs = CPC_GERAL.objects.all().filter(codigo_curso = cod_curso, ano = ano, uf='RS').aggregate(Avg('na'))
     media_na_rs = media_na_rs['na__avg']
-
-    latitude = []
-    longitude = []
-    localizacao = []
-    query = MATRICULADOS_SISU.objects.all().filter(codigo_curso = cod_curso).values('municipio')
-
-    for i in query:
-        aux = MUNICIPIOS.objects.all().filter(MUNICIPIO = i.values()[0]).values('LATITUDE', 'LONGITUDE')
-        if aux.exists():
-            localizacao.append(aux.first())
 
     return {'area':area, 'ano':ano, 'nc': nc, 'nm': nm, 'nd': nd, 'nr': nr, 'no': no, 'nf':nf, 'na': na, 'nidd': nidd,
             'media_nc_br': media_nc_br, 'media_nc_rs': media_nc_rs, 'media_nm_br': media_nm_br, 'media_nm_rs': media_nm_rs,
             'media_nd_br': media_nd_br, 'media_nd_rs': media_nd_rs, 'media_nr_br': media_nr_br, 'media_nr_rs': media_nr_rs,
             'media_no_br': media_no_br, 'media_no_rs': media_no_rs, 'media_nf_br': media_nf_br, 'media_nf_rs': media_nf_rs,
             'media_na_br': media_na_br, 'media_na_rs': media_na_rs, 'media_nidd_br': media_nidd_br, 'media_nidd_rs': media_nidd_rs,
-            'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu, 'localizacao': localizacao
+            'curso':curso, 'ultimo':latest, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu
     }
 
 def fcursos():
