@@ -82,9 +82,29 @@ for a in areas:
 def fcentro(cod_centro):
     centro = cpc.filter(id_centro = cod_centro)
     anos = centro.values('ano').distinct()
-    ano = anos.latest('ano')
-    ano = int(ano['ano'])
-    cursos = centro.filter(ano = ano).order_by('cpc_f2013').values('codigo_curso', 'nome_curso', 'cpc_f2013').distinct()
+    a = []
+    c = []
+    for ano in anos:
+        a.append(ano)
+    x1 = a[-1]
+    x2 = a[-2]
+    x3 = x1['ano'] - x2['ano']
+    if x3 > 2:
+        ano = a.pop()
+        ano = int(ano['ano'])
+        cursos = centro.filter(ano = ano).order_by('cpc_f2013').values('codigo_curso', 'nome_curso', 'cpc_f2013','ano').distinct()
+        for curso in cursos:
+                if curso['cpc_f2013'] > 0:
+                    c.append(curso)
+    else:
+        for i in range(3): # 3 últimos anos, último triênio
+            ano = a.pop()
+            ano = int(ano['ano'])
+            cursos = centro.filter(ano = ano).order_by('cpc_f2013').values('codigo_curso', 'nome_curso', 'cpc_f2013','ano').distinct()
+            for curso in cursos:
+                if curso['cpc_f2013'] > 0:
+                    c.append(curso)
+    cursos = sorted(c, key=lambda k: k['cpc_f2013'], reverse = True)
     d1 = []
     for a in anos:
         x = None

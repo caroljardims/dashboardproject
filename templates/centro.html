@@ -59,10 +59,10 @@
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                    '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
-                useHTML: true
+                useHTML: true,
             },
             plotOptions: {
                 column: {
@@ -73,7 +73,7 @@
             series: [
             {% for c in cursos %}
             {
-                name: '{{ c.nome_curso }}',
+                name: '{{ c.nome_curso }} {{ c.ano }}',
                 data: [{{ c.cpc_f2013 }}],
             },
             {% endfor %}
@@ -85,6 +85,6 @@
 
     <div id="cursos" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div>
     <div id="mediacpccentro" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div>
-    
+
 
 {% endblock %}

@@ -20,52 +20,30 @@ $(function () {
         yAxis: [{ // Primary yAxis
             labels: {
                 format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                },
                 enabled: false
             },
             title: {
                 text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[2]
-                }
             },
-            opposite: true
-
+            opposite: true,
         }, { // Secondary yAxis
-            gridLineWidth: 0,
             title: {
                 text: 'CPC UFSM',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
             },
             labels: {
                 format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                },
             }
 
         }, { // Tertiary yAxis
             gridLineWidth: 0,
             title: {
                 text: '',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                },
                 enabled: false
             },
             labels: {
                 format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
             },
             opposite: true,
-            min: 0,
-            max: 5,
         }],
         tooltip: {
             shared: true
@@ -139,52 +117,6 @@ $(function () {
 	<div class="container fill">
 <div id="containercpc" class="fill" style="min-width: 310px; max-width: 1000px; height: 450px; margin: 0 auto"></div>
 <br/>
-<!--  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-    <div class="carousel-inner" role="listbox" style="height:350px;">
-      <div class="item active">
-        <img src="{% static "img/chart.png"%}" />
-      </div>
-
-      <div class="item">
-        <img src="{% static "img/chart1.png"%}" />
-      </div>
-
-      <div class="item">
-        <img src="{% static "img/chart2.png"%}" />
-      </div>
-
-      <div class="item">
-        <img src="{% static "img/chart3.png"%}" />
-      </div>
-    </div>
-  </div>
-</div>
-
-	<div class="col-md-6">
-		<div class="panel">
-			<h4> Índices Gerais </h4>
-		<img src="{% static "img/chart.png"%}" style="width: 400px;" />
-	</div>
-	</div>
-	<div class="col-md-6">
-		<div class= "panel">
-			<h4> Indicadores Cursos </h4>
-		<img src="{% static "img/chart2.png"%}" style="width: 400px;" />
-	</div>
-	</div>
-	<div class="col-md-6">
-		<div class= "panel">
-			<h4> Indicadores Centros </h4>
-		<img src="{% static "img/chart4.png"%}" style="width: 400px;" />
-	</div>
-	</div>
-	<div class="col-md-6">
-		<div class= "panel">
-			<h4> Outros </h4>
-		<img src="{% static "img/chart1.png"%}" style="width: 400px;" />
-	</div>
-	</div> -->
  </div>
 </div>
 </div>
