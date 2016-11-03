@@ -106,6 +106,10 @@ def fcentro(cod_centro):
                     c.append(curso)
     cursos = sorted(c, key=lambda k: k['cpc_f2013'], reverse = True)
     d1 = []
+
+    aux = []
+    for i in anos: aux.append(i['ano'])
+    yearlist = aux[::-1]
     for a in anos:
         x = None
         for c in centro:
@@ -259,60 +263,76 @@ def fcursos():
 
     centros = list(set(centros))
 
-    cpc_centro = cpc.filter(ano=anocpc).order_by("cpc_f2013")
-    x = []
-#    cpc_cesnorsfw = cpc_centro.filter(centro = "CESNORS FW").aggregate(Avg('cpc_f2013'))
-    cpc_cefd = cpc_centro.filter(centro = "CEFD").aggregate(Avg('cpc_f2013'))
-    x.append('CEFD')
-    x.append(anocpc)
-    x.append(cpc_cefd['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ccsh = cpc_centro.filter(centro = "CCSH").aggregate(Avg('cpc_f2013'))
-    x.append('CCSH')
-    x.append(anocpc)
-    x.append(cpc_ccsh['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-#   cpc_ccs = cpc_centro.filter(centro = "CCS").aggregate(Avg('cpc_f2013'))
-    cpc_ccr = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
-    x.append('CCR')
-    x.append(anocpc)
-    x.append(cpc_ccr['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ccne = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
-    x.append('CCNE')
-    x.append(anocpc)
-    x.append(cpc_ccne['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ctism = cpc_centro.filter(centro = "CTISM").aggregate(Avg('cpc_f2013'))
-    x.append('CTISM')
-    x.append(anocpc)
-    x.append(cpc_ctism['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ce = cpc_centro.filter(centro = "CE").aggregate(Avg('cpc_f2013'))
-    x.append('CE')
-    x.append(anocpc)
-    x.append(cpc_ce['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-#    cpc_cesnorspm = cpc_centro.filter(centro = "CESNORS PM").aggregate(Avg('cpc_f2013'))
-#    cpc_udssm = cpc_centro.filter(centro = "UDSSM").aggregate(Avg('cpc_f2013'))
-    cpc_cal = cpc_centro.filter(centro = "CAL").aggregate(Avg('cpc_f2013'))
-    x.append('CAL')
-    x.append(anocpc)
-    x.append(cpc_cal['cpc_f2013__avg'])
-    d2.append(x)
-    x = []
-    cpc_ct = cpc_centro.filter(centro = "CT").aggregate(Avg('cpc_f2013'))
-    x.append('CT')
-    x.append(anocpc)
-    x.append(cpc_ct['cpc_f2013__avg'])
-    d2.append(x)
-    #print d2
+    for a in range(3):
+        cpc_centro = cpc.filter(ano=anocpc).order_by("cpc_f2013")
+        x = []
+    #    cpc_cesnorsfw = cpc_centro.filter(centro = "CESNORS FW").aggregate(Avg('cpc_f2013'))
+
+        cpc_cefd = cpc_centro.filter(centro = "CEFD").aggregate(Avg('cpc_f2013'))
+        x.append('CEFD')
+        x.append(anocpc)
+        x.append(cpc_cefd['cpc_f2013__avg'])
+        if cpc_cefd['cpc_f2013__avg'] is not None : d2.append(x)
+        x = []
+
+        cpc_ccsh = cpc_centro.filter(centro = "CCSH").aggregate(Avg('cpc_f2013'))
+        x.append('CCSH')
+        x.append(anocpc)
+        x.append(cpc_ccsh['cpc_f2013__avg'])
+        if cpc_ccsh['cpc_f2013__avg'] is not None : d2.append(x)
+        x = []
+
+    #   cpc_ccs = cpc_centro.filter(centro = "CCS").aggregate(Avg('cpc_f2013'))
+        cpc_ccr = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
+        x.append('CCR')
+        x.append(anocpc)
+        x.append(cpc_ccr['cpc_f2013__avg'])
+        if cpc_ccr['cpc_f2013__avg'] is not None : d2.append(x)
+        x = []
+
+        cpc_ccne = cpc_centro.filter(centro = "CCR").aggregate(Avg('cpc_f2013'))
+        x.append('CCNE')
+        x.append(anocpc)
+        x.append(cpc_ccne['cpc_f2013__avg'])
+        if cpc_ccne['cpc_f2013__avg'] is not None :d2.append(x)
+        x = []
+
+        cpc_ctism = cpc_centro.filter(centro = "CTISM").aggregate(Avg('cpc_f2013'))
+        x.append('CTISM')
+        x.append(anocpc)
+        x.append(cpc_ctism['cpc_f2013__avg'])
+        if cpc_ctism['cpc_f2013__avg'] is not None :d2.append(x)
+        x = []
+
+        cpc_ce = cpc_centro.filter(centro = "CE").aggregate(Avg('cpc_f2013'))
+        x.append('CE')
+        x.append(anocpc)
+        x.append(cpc_ce['cpc_f2013__avg'])
+        if cpc_ce['cpc_f2013__avg'] is not None : d2.append(x)
+        x = []
+
+    #    cpc_cesnorspm = cpc_centro.filter(centro = "CESNORS PM").aggregate(Avg('cpc_f2013'))
+
+    #    cpc_udssm = cpc_centro.filter(centro = "UDSSM").aggregate(Avg('cpc_f2013'))
+
+        cpc_cal = cpc_centro.filter(centro = "CAL").aggregate(Avg('cpc_f2013'))
+        x.append('CAL')
+        x.append(anocpc)
+        x.append(cpc_cal['cpc_f2013__avg'])
+        if cpc_cal['cpc_f2013__avg'] is not None : d2.append(x)
+        x = []
+
+        cpc_ct = cpc_centro.filter(centro = "CT").aggregate(Avg('cpc_f2013'))
+        x.append('CT')
+        x.append(anocpc)
+        x.append(cpc_ct['cpc_f2013__avg'])
+        if cpc_ct['cpc_f2013__avg'] is not None : d2.append(x)
+
+        anocpc = anocpc - 1
+        
+    print d2
+
+    d2 = nr = sorted(d2, key=lambda x: x[2], reverse = True)
 
     return {'d1':d1, 'd2':d2, 'cpc':cpc, 'centros':centros,
             'ccne':ccne, 'cesnorsfw':cesnorsfw, 'cefd':cefd,

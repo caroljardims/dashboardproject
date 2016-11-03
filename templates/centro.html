@@ -2,44 +2,7 @@
 
 {% block body%}
 {% load static %}
-<script type="text/javascript">
-    $(function () {
-        $('#mediacpccentro').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Evolução da Média de CPC <br/>{{ centro.0.0 }}'
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'CPC'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                     borderWidth: 1,
-                }
-            },
-            series: [
-            {
-                name: 'CPC {{ centro.0.0 }}',
-                color: '#0c0989',
-                data: [{% for c in centro %} [{{c.1}},{{ c.2 }}],{% endfor %}],
-            },]
-        });
-    });
-</script>
+
 
 <script type="text/javascript">
     $(function () {
@@ -85,6 +48,44 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(function () {
+        $('#mediacpccentro').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Evolução da Média de CPC <br/>{{ centro.0.0 }}'
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'CPC'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                     borderWidth: 1,
+                }
+            },
+            series: [
+            {
+                name: 'CPC {{ centro.0.0 }}',
+                color: '#0c0989',
+                data: [{% for c in centro %} [{{c.1}},{{ c.2 }}],{% endfor %}],
+            },]
+        });
+    });
+</script>
 
     <div id="cursos" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div>
     <div id="mediacpccentro" style="min-width: 310px; max-width: 1050px; height: auto; margin: 0 auto"></div>
