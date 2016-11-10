@@ -55,13 +55,16 @@
                 type: 'column'
             },
             title: {
-                text: 'Evolução da Média de CPC <br/>{{ centro.0.0 }}'
+                text: 'Evolução da Média de CPC por Triênio <br/>{{ centro.0.0 }}'
             },
             yAxis: {
                 min: 0,
                 title: {
                     text: 'CPC'
                 }
+            },
+            xAxis: {
+                categories: [{% for c in centro %} '{{ c.1 }} - {{ c.2 }}', {% endfor %}],
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -80,8 +83,8 @@
             series: [
             {
                 name: 'CPC {{ centro.0.0 }}',
-                color: '#0c0989',
-                data: [{% for c in centro %} [{{c.1}},{{ c.2 }}],{% endfor %}],
+                color: '#ffa262',
+                data: [{% for c in centro %} {{ c.3 }},{% endfor %}],
             },]
         });
     });

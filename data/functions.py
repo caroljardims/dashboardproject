@@ -104,18 +104,29 @@ def fcentro(cod_centro):
             for curso in cursos:
                 if curso['cpc_f2013'] > 0:
                     c.append(curso)
-    cursos = sorted(c, key=lambda k: k['cpc_f2013'], reverse = True)
-    d1 = []
+    cursos = sorted(c, key=lambda k: k['cpc_f2013'], reverse = False)
 
+    d1 = []
     aux = []
     for i in anos: aux.append(i['ano'])
     yearlist = aux[::-1]
-    for a in anos:
-        x = None
-        for c in centro:
-            x = centro.filter(ano = a['ano']).aggregate(Avg('cpc_f2013'))
-        d1.append([centro[0].centro, a['ano'], x['cpc_f2013__avg']])
-    centro = d1
+    for y in yearlist:
+        x = []
+        z = []
+        aux = y
+        for c in range(3):
+            if centro.filter(ano = aux) is not None:
+                aux2 = centro.filter(ano = aux).values('cpc_f2013')
+                aux2 = map(lambda d: d['cpc_f2013'], aux2)
+                if len(aux2) > 0:
+                    for m in aux2:
+                        x.append(m)
+            aux = aux + 1
+        media = reduce(lambda a, b: a + b, x)/len(x)
+            # centro, ano, media cpc
+        d1.append([centro[0].centro, y,y+2, media])
+        # print d1
+    centro = d1[::-1]
 
     return {'centro':centro, 'cursos':cursos, 'ano':ano, 'cursosmenu':cursosmenu, 'centrosmenu':centrosmenu}
 
@@ -329,7 +340,7 @@ def fcursos():
         if cpc_ct['cpc_f2013__avg'] is not None : d2.append(x)
 
         anocpc = anocpc - 1
-        
+
     print d2
 
     d2 = nr = sorted(d2, key=lambda x: x[2], reverse = True)
