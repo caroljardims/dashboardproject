@@ -39,12 +39,22 @@
 -->
 <div class="container">
     <div id="cpcGeralCurso">
-        <div id="evolution" style=" min-width: 310px; width: 100%; height: 500px; margin: 0 auto"></div><br/>
+        <h1>{{ ultimo.0}}</h1>
+        {% for u in ultimo %}
+        <div class="info">
+            <h2> {{ u.municipio }} </h2><br/>
+            <p>CPC: {{ u.cpc_f2013|floatformat:2 }}</p>
+            <p>Posição no RS: {{ u.posicaorscpc }}</p>
+            <p>Posição na Região Sul: {{ u.posicaosulcpc }}</p>
+            <p>Posição no Brasil: {{ u.posicaobrasilcpc}}
+        </div>
+        {% endfor %}
     </div>
-    <hr/>
-    <div style="text-align:center">
-        <h2> Em detalhes </h2>
+    <div style="text-align:center;padding: 20px;margin: auto;">
+        <h2> Em detalhes* </h2>
+        <br/>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modelENADE">Avaliação ENAD</button>
+        <br/><br/>
         <div class="modal fade" id="modelENADE" role="dialog">
             <div class="modal-dialog">
 
@@ -63,6 +73,7 @@
             </div>
         </div>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modelOrgPed"> Percepção do Aluno </button>
+        <br/><br/>
         <div class="modal fade" id="modelOrgPed" role="dialog">
             <div class="modal-dialog">
 
@@ -88,6 +99,7 @@
             </div>
         </div>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modelMestre">Docentes</button>
+        <br/><br/>
         <div class="modal fade" id="modelMestre" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -104,9 +116,13 @@
                 </div>
             </div>
         </div>
+        <br/>
+    *Ordem dos 20 cursos mais bem avaliados da região por categoria.
     </div>
+    <br/><br/>
 </div>
-
+<hr/>
+<div id="evolution" style=" min-width: 310px; width: 100%; height: 500px; margin: 0 auto; clear: both;"></div><br/>
 <!-- Script dos gráficos -->
 
 <script type="text/javascript">
@@ -122,7 +138,7 @@ $(function () {
             text: 'UFSM, RS, Sul, Brasil'
         },
         xAxis: [{
-            categories: [{% for c in curso %} {{ c.ano }}, {% endfor %}],
+            categories: [{% for c in curso %} "{{ c.ano }} {{ c.municipio }}", {% endfor %}],
             crosshair: true
         }],
         yAxis: [ { // 2 yAxis
@@ -190,6 +206,7 @@ $(function () {
                     style: {
                         fontSize: 12,
                     },
+                    format: '{point.y:,.2f}',
                 },
             },
             scatter:{
