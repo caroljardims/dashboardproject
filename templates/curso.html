@@ -2,6 +2,8 @@
 
 {% block body%}
 {% load static %}
+
+
 <style>
     .modal {
       text-align: center;
@@ -55,28 +57,14 @@
     font-size: 16px;
 }
 </style>
-<!--
-<div id="infoboard" class="container fill">
-<h2>CPC {{ ultimo.nome_curso|lower|capfirst }} UFSM - Índices Gerais </h2><br/>
-    <div class="info1">
-        <img class="left" src="{% static "img/icon_avaliacao.png" %}" />
-        <b>Ano da Última Avaliação:</b>   <p>{{ ultimo.ano }}</p>
-        <b>Índice da Última Avaliação:</b> <p>{{ ultimo.cpc_f2013 }}</p>
-    </div>
-    <div class="info2">
-        <img class="left" src="{% static "img/icon_posicao.png" %}" />
-        <b>Posicionamento no Estado:</b> <p> {{ ultimo.posicaorscpc }} </p>
-        <b>Posicionamento no País:</b> <p>{{ ultimo.posicaobrasilcpc }}</p>
-    </div>
-</div>
--->
+
 <div class="container">
     <div id="cpcGeralCurso">
         <h1>{{ ultimo.0}}</h1>
         {% for u in ultimo %}
         <div class="info">
             <h2> {{ u.municipio }} </h2><br/>
-            <p>CPC: {{ u.cpc_f2013|floatformat:2 }}</p>
+            <p style="text-align: center;">CPC: {{ u.cpc_f2013|floatformat:2 }}</p>
             <p>Posição no RS: {{ u.posicaorscpc }}</p>
             <p>Posição na Região Sul: {{ u.posicaosulcpc }}</p>
             <p>Posição no Brasil: {{ u.posicaobrasilcpc}}
@@ -155,7 +143,10 @@
     <br/><br/>
 </div>
 <hr/>
+
+
 <div id="evolution" style=" min-width: 310px; width: 100%; height: 500px; margin: 0 auto; clear: both;"></div><br/>
+
 <!-- Script dos gráficos -->
 
 <script type="text/javascript">
